@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="#1c1c1c"></rect><text x="100" y="115" font-size="72" fill="#f5f2ec" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">C</text></svg></template>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<script src="https://unpkg.com/d3@7.9.0/dist/d3.min.js" integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/topojson-client@3.1.0/dist/topojson-client.min.js" integrity="sha384-Ukv1p/xTma6P4/2bY5KzWBw+ydSpXmhCMtyciIQVDJ1RmOxtCYNMF1uXT9T63H67" crossorigin="anonymous"></script>
+<style>
+  html, body { overflow-x: clip; max-width: 100%; }
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; }
+  body, h1, h2, h3, h4, p, div, span, a, button, label, input, textarea, dt, dd { font-family: 'Poppins', Helvetica, Arial, sans-serif; }
+  a { color: var(--ink); text-decoration: none; }
+  a:hover { color: var(--accent); }
+  ::selection { background: var(--selection); }
+  [data-scroll="filmstrip"]::-webkit-scrollbar { display: none; }
+  @keyframes clip-marquee { from { transform: translate3d(0,0,0); } to { transform: translate3d(-50%,0,0); } }
+  @media (min-width: 701px) {
+    #china-blurb { width: 50vw !important; max-width: 50vw !important; }
+  }
+  @media (max-width: 700px) {
+    #china-blurb { max-width: 44ch !important; width: 100% !important; }
+    img { max-width: 100%; }
+    #header-bar { grid-template-columns: 1fr auto; row-gap: 0; align-items: start; padding: 12px 16px; }
+    #header-bar > span { display: none; }
+    #header-bar nav { grid-column: 1; justify-content: flex-start; gap: 20px; font-size: 15px; }
+    #header-bar > div:last-child { grid-column: 2; flex-direction: column-reverse; align-items: stretch; gap: 10px; justify-content: flex-start; }
+    #header-brand { grid-template-columns: 1fr; text-align: center; padding: 24px 16px 28px 16px; gap: 16px; }
+    #header-brand img { margin: 0 auto; }
+    #header-brand p { justify-self: stretch !important; text-align: center !important; font-size: 14px !important; max-width: none !important; width: 100% !important; }
+    section { padding-left: 16px !important; padding-right: 16px !important; }
+    #project-hero { padding-left: 0 !important; padding-right: 0 !important; }
+    #work-grid { grid-template-columns: 1fr !important; }
+    #work-grid > button { max-width: 480px; margin: 0 auto; width: 100%; }
+    #project-intro-row { grid-template-columns: 1fr; }
+    #project-body { grid-template-columns: 1fr !important; }
+    #filter-bar { padding: 10px 16px !important; row-gap: 12px !important; }
+    #filter-bar > div { width: 100%; }
+    #news-section { grid-template-columns: 1fr !important; padding-left: 16px !important; padding-right: 16px !important; }
+    #news-section a > div { grid-template-columns: 92px minmax(0,1fr) !important; gap: 14px !important; }
+    #news-section a > div > div:first-child { width: 92px !important; height: 92px !important; }
+    #news-section a > div > div:last-child { height: 92px !important; }
+    [data-about-row] { grid-template-columns: 1fr !important; gap: 24px !important; }
+    [data-about-row] p { width: 100% !important; }
+    button, a { max-width: 100%; }
+    #header-bar { position: fixed !important; left: 0; right: 0; top: 0; width: 100%; grid-template-columns: auto auto !important; justify-content: space-between; }
+    #header-spacer { display: block !important; }
+    #desktop-logo { display: none !important; }
+    #mobile-logo { display: flex !important; align-items: center; }
+    #header-bar nav { grid-column: 1; display: none !important; }
+    #header-actions { grid-column: 2; display: none !important; }
+    #mobile-burger { display: flex !important; }
+    #header-brand { display: none !important; }
+    .mobile-menu-panel { display: flex !important; position: fixed !important; top: 92px; left: 0; right: 0; z-index: 39; }
+    .filter-group { flex-direction: column !important; align-items: flex-start !important; gap: 8px !important; width: 100%; }
+    .filter-chips { flex-wrap: nowrap !important; overflow-x: auto; width: 100%; scrollbar-width: none; }
+    .filter-chips::-webkit-scrollbar { display: none; }
+    .filter-chips button { font-size: 11px !important; padding: 5px 9px !important; flex: none; white-space: nowrap; }
+    [data-scroll="filmstrip"] { scroll-snap-type: x mandatory; margin-right: -16px !important; padding-right: 16px !important; }
+    [data-scroll="filmstrip"] > div { flex: 0 0 100% !important; width: 100% !important; aspect-ratio: auto !important; scroll-snap-align: start; }
+    #process-section, #trusted-section { height: auto !important; padding-top: 48px !important; padding-bottom: 48px !important; }
+    #process-title, #trusted-title { height: auto !important; margin-bottom: 24px !important; }
+    .award-card > div:not(:first-child), .award-card > p { margin: 8px 0 0 0 !important; }
+  }
+  @media (max-width: 1150px) { #project-body { grid-template-columns: 1fr !important; } }
+</style>
+</helmet>
+<div aria-hidden="true" style="display: none;"><img loading="lazy" decoding="async" data-asset="uploads/web/260601_CAL_Flower-items-139bb68b.webp" src="uploads/web/260601_CAL_Flower-items-139bb68b.webp" alt=""><img loading="lazy" decoding="async" data-asset="uploads/opt/IMG_5649_1200x800px_72dpi.webp" src="uploads/opt/IMG_5649_1200x800px_72dpi.webp" alt=""></div>
+<div style="{{ rootVars }} font-family: 'Poppins', Helvetica, Arial, sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; display: flex; flex-direction: column;">
+
+  <div id="header-bar" style="position: sticky; top: 0; z-index: 40; background: var(--header-bg); backdrop-filter: blur(8px); border-bottom: 1px solid var(--ink); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; padding: 16px 32px; transition: transform 0.25s ease; transform: {{ headerBarTransform }};">
+    <a href="#" id="mobile-logo" onClick="{{ goWork }}" style="display:none;">
+      <img decoding="async" fetchpriority="high" ref="{{ logoRef }}" src="https://static.wixstatic.com/media/72975e_5b6b7546f60045c4953f87733507a3c5~mv2.png/v1/fill/w_369,h_228,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/LOGO_CLIP_edited.png" alt="Clip" style="height: 68px; width: auto; display: block;">
+    </a>
+    <a href="#" id="desktop-logo" onClick="{{ goWork }}" style="grid-column: 1; grid-row: 1; justify-self: start; display: flex; align-items: center; transition: opacity 0.25s ease, transform 0.25s ease; {{ barLogoStyle }}">
+      <img decoding="async" src="https://static.wixstatic.com/media/72975e_5b6b7546f60045c4953f87733507a3c5~mv2.png/v1/fill/w_369,h_228,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/LOGO_CLIP_edited.png" alt="Clip" style="height: 36px; width: auto; display: block; margin: -4px 0;">
+    </a>
+    <nav style="grid-column: 2; grid-row: 1; display: flex; align-items: center; gap: 36px; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: 0.03em;">
+      <a href="#" onClick="{{ goWork }}" style="{{ navWork }}" style-hover="color:var(--accent)">Work</a>
+      <a href="#" onClick="{{ goAbout }}" style="{{ navAbout }}" style-hover="color:var(--accent)">About</a>
+      <a href="#" onClick="{{ goNews }}" style="{{ navNews }}" style-hover="color:var(--accent)">News</a>
+    </nav>
+    <div id="header-actions" style="grid-column: 3; grid-row: 1; justify-self: end; display: flex; align-items: center; gap: 14px;">
+      <button onClick="{{ toggleDark }}" style="{{ darkToggleStyle }}" style-hover="border-color:var(--ink)">{{ darkToggleLabel }}</button>
+      <a href="#" onClick="{{ goContact }}" style="font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 13px; letter-spacing: 0.03em; border: 1px solid var(--ink); border-radius: 999px; padding: 8px 18px; display: inline-flex;" style-hover="background:var(--ink);color:var(--surface-alt)">Contact</a>
+    </div>
+    <button id="mobile-burger" onClick="{{ toggleMenu }}" aria-label="Menu" style="display:none; justify-self: end; width: 36px; height: 36px; border: 1px solid var(--ink); border-radius: 999px; background: none; align-items: center; justify-content: center; cursor: pointer; padding: 0; font-size: 16px; color: var(--ink);">{{ menuIcon }}</button>
+  </div>
+  <div id="header-spacer" style="display: none; height: 92px;"></div>
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <div class="mobile-menu-panel" style="background: var(--header-bg); border-bottom: 1px solid var(--ink); padding: 8px 16px 20px 16px; flex-direction: column; gap: 2px; text-align: right; align-items: flex-end;">
+      <a href="#" onClick="{{ goWorkMobile }}" style="padding: 10px 4px; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-align: right;">Work</a>
+      <a href="#" onClick="{{ goAboutMobile }}" style="padding: 10px 4px; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-align: right;">About</a>
+      <a href="#" onClick="{{ goNewsMobile }}" style="padding: 10px 4px; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-align: right;">News</a>
+      <div style="display: flex; align-items: center; gap: 10px; margin-top: 14px;">
+        <button onClick="{{ toggleDark }}" style="width: 36px; height: 36px; border: 1px solid var(--border); border-radius: 999px; background: none; color: var(--ink); display: flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer; padding: 0;">{{ darkToggleIconOnly }}</button>
+        <a href="#" onClick="{{ goContactMobile }}" style="font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 13px; letter-spacing: 0.03em; border: 1px solid var(--ink); border-radius: 999px; padding: 8px 18px; display: inline-flex; align-items: center;">Contact</a>
+      </div>
+    </div>
+  </sc-if>
+  <header>
+    <div id="header-brand" style="display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); align-items: center; gap: 24px; padding: 40px 32px 44px 32px;">
+      <a href="#" onClick="{{ goWork }}">
+        <img decoding="async" fetchpriority="high" ref="{{ logoRef }}" src="https://static.wixstatic.com/media/72975e_5b6b7546f60045c4953f87733507a3c5~mv2.png/v1/fill/w_369,h_228,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/LOGO_CLIP_edited.png" alt="Clip" style="height: clamp(77px,10.8vw,132px); width: auto; display: block;">
+      </a>
+      <p style="font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.55; color: var(--ink); margin: 0; max-width: 60ch; width: 100%; justify-self: end;">Clip is a creative and design-driven player in the aviation supply industry.<br>We provide smart solutions onboard, specifically designed for each airline.</p>
+    </div>
+  </header>
+
+  <sc-if value="{{ isWork }}" hint-placeholder-val="{{ true }}">
+  <main style="flex: 1;">
+    
+
+    <section style="padding: 40px 32px 56px 32px; border-bottom: 1px solid var(--ink);">
+      <div style="font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px;">In the spotlight</div>
+      <div ref="{{ setFilmstripRef }}" data-scroll="filmstrip" style="display: flex; align-items: stretch; gap: 16px; height: clamp(370px, 47.5vw, 554px); overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; margin-right: -32px; padding-right: 32px;">
+        <div style="flex: 0 0 auto; height: 100%; aspect-ratio: 16 / 10; overflow: hidden; background: var(--surface);">
+          <img fetchpriority="high" decoding="async" src="./260601_cal_hero-item-plumblossom-mtu5q5d1-fz3r.webp" alt="China Airlines Business Class tableware, plum blossom set" style="width: 100%; height: 100%; object-fit: cover; display: block; position: static">
+        </div>
+        <div style="flex: 0 0 auto; height: 100%; aspect-ratio: 3 / 4; overflow: hidden; background: var(--surface);">
+          <img loading="lazy" decoding="async" src="./260526_cal_cutlery-brown-mtu5renq-x5zi.webp" alt="China Airlines Business Class cutlery set" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+        </div>
+        <div style="flex: 0 0 auto; height: 100%; aspect-ratio: 16 / 10; overflow: hidden; background: var(--surface);">
+          <img loading="lazy" decoding="async" src="uploads/web/260601_CAL_setup.webp" alt="China Airlines Business Class tableware, place setting" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+        </div>
+        <div style="flex: 0 0 auto; height: 100%; aspect-ratio: 16 / 10; overflow: hidden; background: var(--surface);">
+          <img loading="lazy" decoding="async" src="uploads/web/260601_CAL_topview-lantern.webp" alt="China Airlines Business Class tableware, top view" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+        </div>
+        <div style="flex: 0 0 auto; height: 100%; aspect-ratio: 3 / 4; overflow: hidden; background: var(--surface);">
+          <img loading="lazy" decoding="async" src="uploads/web/260601_CAL_Flower-items.webp" alt="China Airlines Business Class tableware, styled with plum blossom branch" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+        </div>
+        <div style="flex: 0 0 auto; height: 100%; aspect-ratio: 16 / 10; overflow: hidden; background: var(--surface);">
+          <img loading="lazy" decoding="async" src="uploads/web/260601_CAL_Overview.webp" alt="China Airlines Business Class tableware, full collection overview" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+        </div>
+        <div style="flex: 0 0 auto; height: 100%; width: 100px; background: repeating-linear-gradient(45deg, var(--ph-a) 0px, var(--ph-a) 12px, var(--ph-b) 12px, var(--ph-b) 24px); display: flex; align-items: center; justify-content: center; padding: 12px;">
+          <span style="font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); text-align: center;">more<br>pending</span>
+        </div>
+      </div>
+      <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 10px;">
+        <button onClick="{{ scrollFilmLeft }}" style="width: 30px; height: 30px; border-radius: 999px; border: 1px solid var(--border); background: none; color: var(--ink); cursor: pointer; font-size: 13px; display: flex; align-items: center; justify-content: center;" style-hover="border-color:var(--ink)">←</button>
+        <button onClick="{{ scrollFilmRight }}" style="width: 30px; height: 30px; border-radius: 999px; border: 1px solid var(--border); background: none; color: var(--ink); cursor: pointer; font-size: 13px; display: flex; align-items: center; justify-content: center;" style-hover="border-color:var(--ink)">→</button>
+      </div>
+
+      <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 16px; margin-top: 32px;">
+        <h1 style="font-size: clamp(32px, 4.4vw, 52px); line-height: 1.02; letter-spacing: -0.02em; font-weight: 600; margin: 0;">China Airlines — Business Class Tableware</h1>
+        <a href="#work-grid" onClick="{{ scrollGrid }}" style="flex: none; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; border-bottom: 1px solid var(--ink); padding-bottom: 4px; white-space: nowrap;" style-hover="color:var(--accent);border-color:var(--accent)">CLICK TO SEE MORE →</a>
+      </div>
+
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 32px 56px; margin-top: 24px; padding-bottom: 28px; border-bottom: 1px solid var(--border);">
+        <div style="display: flex; flex-wrap: wrap; gap: 32px 56px;">
+          <div><div style="font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);">Client</div><div style="font-size: 14px; margin-top: 4px;">China Airlines</div></div>
+          <div><div style="font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);">Cabin class</div><div style="font-size: 14px; margin-top: 4px;">Business</div></div>
+          <div><div style="font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);">YEAR</div><div style="font-size: 14px; margin-top: 4px;">2026</div></div>
+        </div>
+        <p id="china-blurb" style="font-size: 15px; line-height: 1.55; color: var(--body); margin: 0; max-width: 44ch; width: 100%;">China Airlines has unveiled a new Business Class tableware collection inspired by the warmth of home, created in partnership with Taiwanese design brand JIA marking the latest step in China Airlines' ongoing investment in its premium onboard experience.<br><br>The 30+ piece collection features porcelain in the airline's signature Jade tones with ink-wash-style mountain motifs, plus culturally-inspired details.</p>
+      </div>
+    </section><div id="filter-bar" style="background: var(--bg); border-bottom: 1px solid var(--ink); padding: 12px 20px; display: flex; flex-wrap: wrap; align-items: center; gap: 18px 28px;">
+      <div class="filter-group" style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+        <span style="font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-right: 4px;">Product</span>
+        <div class="filter-chips" style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+        <sc-for list="{{ cats }}" as="c" hint-placeholder-count="5">
+          <button onClick="{{ c.pick }}" style="{{ c.style }}" style-hover="border-color:var(--ink)">{{ c.label }}</button>
+        </sc-for>
+        </div>
+      </div>
+      <div class="filter-group" style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+        <span style="font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-right: 4px;">Cabin</span>
+        <div class="filter-chips" style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+        <sc-for list="{{ cabins }}" as="c" hint-placeholder-count="5">
+          <button onClick="{{ c.pick }}" style="{{ c.style }}" style-hover="border-color:var(--ink)">{{ c.label }}</button>
+        </sc-for>
+        </div>
+      </div>
+      <div style="margin-left: auto; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 11px; color: var(--muted);">{{ countLabel }}</div>
+    </div>
+
+    <section id="work-grid" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--border); border-bottom: 1px solid var(--ink);">
+      <sc-for list="{{ items }}" as="p" hint-placeholder-count="12">
+        <button onClick="{{ p.open }}" style="background:var(--surface-alt);border:0;padding:0;margin:0;text-align:left;cursor:pointer;display:flex;flex-direction:column;justify-content:flex-start;font-family:inherit;color:inherit" style-hover="background:var(--hover-surface)">
+          <div style="aspect-ratio: 1 / 1; overflow: hidden; background: var(--surface);">
+            <img loading="lazy" decoding="async" ref="{{ p.setRef }}" alt="{{ p.title }}" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          </div>
+          <div style="padding: 12px 14px 16px 14px; display: flex; flex-direction: column; gap: 6px;">
+            <div style="font-size: 15px; font-weight: 500; line-height: 1.25;">{{ p.fullTitle }}</div>
+            <div style="display: flex; justify-content: space-between; gap: 10px; align-items: baseline; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted-2);">
+              <span>{{ p.meta }}</span><span>{{ p.num }}</span>
+            </div>
+          </div>
+        </button>
+      </sc-for>
+    </section>
+
+
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isProject }}" hint-placeholder-val="{{ false }}">
+  <main style="flex: 1;">
+    <section style="padding: 28px 32px 0 32px;">
+      <a href="#" onClick="{{ detail.backToWork }}" style="font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);" style-hover="color:var(--accent)">← All projects</a>
+    </section>
+
+    <section id="project-hero" style="padding: 24px 0 0 0;">
+      <div style="width: 100%; aspect-ratio: 16 / 9; overflow: hidden; background: var(--surface);">
+        <sc-if value="{{ detail.isSwissPE }}" hint-placeholder-val="{{ false }}"><img loading="lazy" decoding="async" src="uploads/opt/IMG_5649_1200x800px_72dpi.webp" alt="SWISS Premium Economy kits" style="width: 100%; height: 100%; object-fit: cover; display: block"></sc-if>
+        <sc-if value="{{ detail.isP2 }}" hint-placeholder-val="{{ false }}"><img src="uploads/web/EVA-AIR-tea-leaf.webp" alt="EVA Air Economy tableware" style="width: 100%; height: 100%; object-fit: cover; display: block"></sc-if>
+        <sc-if value="{{ detail.isP3 }}" hint-placeholder-val="{{ false }}"><img src="uploads/web/SWISS_Economy_Meal_11.webp" alt="SWISS black Bento box" style="width: 100%; height: 100%; object-fit: cover; display: block"></sc-if>
+        <sc-if value="{{ detail.isP4 }}" hint-placeholder-val="{{ false }}"><img src="uploads/web/FLYDUBAI-headphone-heading.webp" alt="Flydubai modular headphone" style="width: 100%; height: 100%; object-fit: cover; display: block"></sc-if>
+        <sc-if value="{{ detail.isNotSwissPE }}" hint-placeholder-val="{{ false }}"><img loading="lazy" decoding="async" ref="{{ detail.setRef }}" alt="{{ detail.title }}" style="width: 100%; height: 100%; object-fit: cover; display: block" src="./img_5649_1200x800px_72dpi-muclinpn-zpge.webp"></sc-if>
+      </div>
+    </section>
+
+    <section style="padding: 56px 32px 64px 32px;">
+      <div id="project-body" style="display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 48px; align-items: start;">
+        <div>
+          <div style="font-size: 15px; color: var(--muted); letter-spacing: 0.02em;"><sc-if value="{{ detail.isP26 }}" hint-placeholder-val="{{ false }}"><span>2026</span></sc-if><sc-if value="{{ detail.isP1 }}" hint-placeholder-val="{{ false }}"><span>2025</span></sc-if><sc-if value="{{ detail.isP2 }}" hint-placeholder-val="{{ false }}"><span>2025</span></sc-if><sc-if value="{{ detail.isP3 }}" hint-placeholder-val="{{ false }}"><span>2025</span></sc-if><sc-if value="{{ detail.isP4 }}" hint-placeholder-val="{{ false }}"><span>2025</span></sc-if><sc-if value="{{ detail.isP5 }}" hint-placeholder-val="{{ false }}"><span>2024</span></sc-if><sc-if value="{{ detail.isP6 }}" hint-placeholder-val="{{ false }}"><span>2025</span></sc-if><sc-if value="{{ detail.isP7 }}" hint-placeholder-val="{{ false }}"><span>2023</span></sc-if><sc-if value="{{ detail.isP8 }}" hint-placeholder-val="{{ false }}"><span>2023</span></sc-if><sc-if value="{{ detail.isP9 }}" hint-placeholder-val="{{ false }}"><span>2023</span></sc-if><sc-if value="{{ detail.isP10 }}" hint-placeholder-val="{{ false }}"><span>2023</span></sc-if><sc-if value="{{ detail.isP11 }}" hint-placeholder-val="{{ false }}"><span>2023</span></sc-if><sc-if value="{{ detail.isP12 }}" hint-placeholder-val="{{ false }}"><span>2021</span></sc-if><sc-if value="{{ detail.isP13 }}" hint-placeholder-val="{{ false }}"><span>2020</span></sc-if><sc-if value="{{ detail.isP14 }}" hint-placeholder-val="{{ false }}"><span>2019</span></sc-if><sc-if value="{{ detail.isP15 }}" hint-placeholder-val="{{ false }}"><span>2025</span></sc-if><sc-if value="{{ detail.isP16 }}" hint-placeholder-val="{{ false }}"></sc-if><sc-if value="{{ detail.isP17 }}" hint-placeholder-val="{{ false }}"><span>2025</span></sc-if><sc-if value="{{ detail.isP18 }}" hint-placeholder-val="{{ false }}"><span>2019</span></sc-if><sc-if value="{{ detail.isP19 }}" hint-placeholder-val="{{ false }}"><span>2025</span></sc-if><sc-if value="{{ detail.isP20 }}" hint-placeholder-val="{{ false }}"><span>2025</span></sc-if><sc-if value="{{ detail.isP21 }}" hint-placeholder-val="{{ false }}"><span>2025</span></sc-if><sc-if value="{{ detail.isP22 }}" hint-placeholder-val="{{ false }}"><span>2025</span></sc-if><sc-if value="{{ detail.isP23 }}" hint-placeholder-val="{{ false }}"><span>2025</span></sc-if><sc-if value="{{ detail.isP24 }}" hint-placeholder-val="{{ false }}"><span>2025</span></sc-if></div>
+          <h1 style="font-size: clamp(30px, 3.4vw, 44px); line-height: 1.08; letter-spacing: -0.01em; font-weight: 600; margin: 8px 0 0 0;">{{ detail.client }}</h1>
+          <div style="font-size: clamp(18px, 1.7vw, 22px); line-height: 1.3; color: var(--body); margin-top: 8px;">{{ detail.subtitle }}</div>
+
+          <sc-if value="{{ detail.isCAL }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top: 40px;">
+          <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 0; font-family: Poppins"><span style="text-decoration:underline"><span style="font-size:30px"><span style="font-family:questrial,sans-serif"></span></span></span></p>
+          <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;"><span data-olk-copy-source="MessageBody"><b>Clip partnered with China Airlines and Taiwanese design brand JIA to develop new Business Class tableware collection inspired by the warmth of home, featuring over 30 porcelain pieces with jade-green gradients and ink-wash-style mountain motifs, including signature designs like a gourd-shaped butter dish doubling as a chopstick rest, lantern-shaped salt and pepper shakers, and a propeller-inspired multifunctional utensil.<br></b><br>China Airlines, Taiwan’s leading carrier, has unveiled its new Business Class tableware collection, bringing together Taiwanese cultural references, contemporary design, hospitality and sustainability.<br></span><br><span data-olk-copy-source="MessageBody">China Airlines has once again partnered with JIA, the award-winning Taiwanese design brand. Developed around the concept of Home, the collection draws inspiration from the warmth and sense of reunion associated with traditional lanterns. Their soft, rounded forms are translated into the gentle curves of the tableware, creating a welcoming and familiar dining experience on board.<br><br><span data-olk-copy-source="MessageBody">The porcelain features subtle gradients of China Airlines’ signature Sustainable Jade, combined with grayscale mountain landscapes. Reminiscent of traditional ink-wash painting, the composition brings a sense of calm and serenity to the cabin and evokes Taiwan’s natural landscape.<br><span style="color: inherit; font-family: inherit; font-size: inherit; font-style: inherit; font-variant-ligatures: inherit; font-variant-caps: inherit; font-weight: inherit;"><br>The new Premium Business Class and Business Class collection comprises more than 30 pieces, including main plates, multipurpose dishes, stainless-steel cutlery and glassware. Bringing such an extensive range to life was made possible through Clip’s expertise in product development and manufacturing, ensuring the high level of quality, consistency and technical performance required for airline service.<br></span><br><span data-olk-copy-source="MessageBody">Throughout the range, references to Eastern culture are translated into practical and versatile details. Among the most distinctive pieces is a gourd-shaped butter dish that also functions as a chopstick rest, combining an auspicious traditional form with everyday functionality. A pair of salt and pepper shakers takes the shape of small red lanterns, adding a warm accent to the table. A multifunctional utensil inspired by an aircraft propeller combines a dessert spoon, teaspoon and butter knife in a single piece.<br><br><span data-olk-copy-source="MessageBody">The collection has also been designed to accommodate a wide variety of meal services. Individual pieces can be combined and arranged in different ways, giving cabin crews greater flexibility in presentation while creating a more varied and refined dining experience for passengers.<br><br><span data-olk-copy-source="MessageBody">China Airlines has continued to enhance its premium cabin products and inflight dining experience in recent years, earning numerous international accolades. In addition to being named an APEX Five Star Global Airline for ten consecutive years, the airline has received recognition from both Onboard Hospitality and TravelPlus for its Business Class service, catering and onboard products.<br><br><span data-olk-copy-source="MessageBody">Through its continued investment in food and beverage, amenity design and cabin interiors, China Airlines aims to create a more distinctive and thoughtful passenger experience while reflecting its ongoing commitment to exceptional service.</span></span></span></span></span></span></p>
+          </div>
+          </sc-if>
+          <sc-if value="{{ detail.isP1 }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top: 40px;">
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 0;"><b>A celebration of Swiss values in travel: quality, practicality and understated elegance.</b></p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">Hong Kong – 23.10.25 – Clip, the global specialist in airline inflight service ware and travel amenities, is proud to unveil its new amenity kits designed exclusively for Swiss International Air Lines’ Premium Economy Class. These new kits embody quintessential Swiss principles—quality, practicality and timeless design—and helps to elevate the onboard experience for discerning travelers.</p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">Several distinctive kits were created for an enjoyable journey and to be used long after the flight.  Two different kits will be featured onboard at the same time; while one design will be featured on the inbound flights and the other on outbound flights. There are a total of three different kits and each kit have two colourways.</p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0; font-style: normal"><u>The Tin Box     Design</u>:<br>- A sleek, compact tin case finished in deep matte burgundy and black.<br>- Functionality: Perfectly sized to double as a pen case or glasses holder after the flight.<br>- Collectible Value: Designed to stack elegantly, making them as practical on a desk as they are beautiful to collect.<br>- Heritage: A modern continuation of the tin box concept that Clip first introduced for SWISS almost a decade ago—now in a refined, more compact edition.<br><br><u>The Transparent Pouch Design</u>:<br>- A sturdy, TSA-compliant transparent pouch. ​<br>- Functionality: Ideal for toiletries at airport security or for storing bathing essentials while travelling.<br>- Sustainability &amp; Practicality: Durable and reusable, crafted to accompany passengers well beyond their journey. ​<br><br><u>The Fabric Pouch Design</u>:<br>- Made from premium recycled polycanvas with a discreet zip closure, striking the perfect balance between high quality and humble elegance.<br>- Functionality: A versatile travel companion, perfect for storing small electronics, cables, or jewelry on the move.<br>- Completeness: Adds a tactile, understated charm to the collection, rounding it out with another practical and reusable option.</p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">Premium Touch, Swiss Understatement<br>All kits carry the SWISS hallmark in a subtle, refined manner—a nod to the airline’s prestigious reputation and its philosophy of quality without ostentation.  Each kit includes travel essentials such as 100% Rpet socks, earplugs, Humble branded toothpaste and a bamboo toothbrush, encouraging reuse and long-term value rather than single-use waste.  ​<br><br>A Signature Collaboration<br>“We are delighted to continue our long-standing collaboration with SWISS, creating products that passengers not only enjoy onboard but also want to keep, reuse and collect long after the flight,” said Cindy Lam, Director at Clip.  “These new Premium Economy class kits perfectly embody the Swiss spirit: practical, elegant and enduring.”</p>
+          </div>
+          </sc-if>
+          <sc-if value="{{ detail.isP2 }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top: 40px;">
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 0;"><b style="width: 599px; height: 53px">Inspired by Taiwan's tea plantations, a new sustainable tableware collection elevates the in-flight dining experience aboard EVA Air.</b></p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">Taipei, Taiwan – EVA Air, Taiwan’s five star airline, is proud to unveil its newly designed tableware set for economy class passengers. Developed in collaboration with aviation design experts Clip, the innovative set is crafted to enhance the in-flight dining experience while promoting sustainability.​</p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">Manufactured in Italy from high-quality, durable resin, the collection includes two sizes of bowls, a heatable casserole, a drinking cup, and two ATLAS-standard trays. Designed for long-lasting use, these elements significantly reduce single-use plastics, reinforcing EVA Air’s commitment to environmentally responsible travel.<br><br>The sophisticated textures adorning each piece are inspired by Taiwan’s renowned tea plantations—an emblem of tradition, culture, and sustainability. Beyond their striking aesthetic, these intricate patterns provide a tactile experience that enhances grip and stability, ensuring passenger comfort when handling their meal. In a further nod to Taiwan’s rich tea culture, the transparent elements of the set feature a subtle green hue, evoking the serenity and elegance of traditional tea ceremonies.​<br></p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">With this new tableware collection, EVA Air continues to elevate its onboard service while embracing sustainable innovation, delivering a refined and environmentally conscious dining experience to its passengers.</p>
+          </div>
+          </sc-if>
+          <sc-if value="{{ detail.isP3 }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top: 40px;">
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 0;"><b>Inspired by the traditional Japanese lunch box, the Swiss Bento brings smart design and lasting sustainability to every meal aboard SWISS.</b></p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">Clip is excited to unveil the latest version of the Swiss Bento, a sophisticated and innovative food serving box designed for use onboard. Inspired by traditional Japanese lunch boxes, the Swiss Bento is utilized by Swiss International Air Lines for second service, breakfast, and light meals.<br><br>Passengers are impressed by its premium, smooth black finish and the intuitive design, with the cutlery cleverly integrated into the lid for ease of use. They also appreciate its practicality, as all components can be neatly stored back inside the box once the meal is finished. This streamlined design enhances the efficiency of both meal delivery and collection, allowing cabin crew to focus more on personalized interactions with passengers.</p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">Designed with sustainability in mind, the Swiss Bento eliminates the need for disposable lids or protective films, as the food is directly stored inside the box. Its compact design is highly efficient, allowing 12 boxes to fit comfortably in a single standard drawer, which helps optimize valuable galley space—an ever-pressing concern as new aircraft feature smaller galleys.<br><br>Moreover, the Swiss Bento is built to last, enduring at least 100 cycles of filling, shipping, eating, cleaning, and storage. This durable design is a testament to Swiss International Air Lines’ commitment to reducing the ecological impact of air travel.</p>
+          </div>
+          </sc-if>
+          <sc-if value="{{ detail.isP4 }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top: 40px;">
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 0;"><b>A truly modular headphone, designed to be disassembled and reassembled in under a minute without any tools.</b></p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">Flydubai has just introduced a radically new noise cancelling headphone in the business class cabin, with the goal of dramatically reducing the carbon footprint of this specific piece of equipment.<br><br>The new concept allows to separate the headphones into four main modules: Headband with ear cups, Electronic modules, Cables and  Earpads.<br><br>The disassembly and assembly process is very simple, and can be achieved in a minute without requiring tools. Cabin crew and maintenance teams can easily execute the process with only a few minutes of training.</p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">Years of experience have concluded that most of the headphone defects on airplanes are due to broken plastic components or defective cables, usually concluding in the whole device being discarded.<br><br>This new modular design allows airlines to replace the defective parts of each headset and reuse the remaining parts of the headphones to regenerate new equipment.<br><br>Airlines can reduce carbon emission and long-run budget 50% or more with this new design.</p>
+          </div>
+          </sc-if>
+          <sc-if value="{{ detail.isP5 }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top: 40px;">
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 0;"></p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">The new VIVAJET kit helps elevate the travel experience of flying on a private jet.  Designed with luxury and elegance in mind, the sleek pouch offers essential items for comfort and style in providing a seamless guest journey.</p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">The new amenity kits includes exclusive products from L'Occitane as well as a wooden toothbrush and White Glo toothpaste.</p>
+          </div>
+          </sc-if>
+          <sc-if value="{{ detail.isP6 }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top: 40px;">
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 0;"></p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">Starlux and Aesop has teamed up to develop this high quality departure kit for First Class.</p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">Departure offers products to maintain clean and hydrated hands, nurture dehydrated skin, and ensure immaculate oral hygiene.  ​<br><br>Includes from Aesop:<br>- Resurrection Rinse-Free Hand Wash 50 mL  Gentle cleanser to refresh the hands when water is unavailable.<br>- Resurrection Aromatique Hand Balm 15 mL Fragrant, skin-softening balm to deliver rich hydration to the hands and cuticles.<br>- Blue Chamomile Facial Hydrating Masque 15 mL Intensely hydrating formulation to replenish moisture and soften the skin.<br>- Immediate Moisture Facial Hydrosol 50 mL Refreshing, Rose Petal-infused mist to hydrate the skin and revive the senses.<br>- Cedar &amp; Citrus Lip Salve 9 mL Nourishing formulation to smooth and soften the delicate skin of the lips.<br>- Mouthwash 50 mL Alcohol-free formula enhanced with extracts of Anise, Clove and Spearmint to maintain fresh breath.<br>- Toothpaste 10 mL A highly efficacious toothpaste with hints of Cardamom, to cleanse and refresh the teeth and gums.  ​<br><br>The new amenity kits includes exclusive products from Aesop as well as a wooden brush and mirror.</p>
+          </div>
+          </sc-if>
+          <sc-if value="{{ detail.isP7 }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top: 40px;">
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 0;"><b>Co-developed with Zimmerli of Switzerland, a new sustainable pyjama collection brings refined comfort to SWISS First guests.</b></p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">SWISS and Zimmerli of Switzerland, a renowned Swiss luxury company, have extended their partnership by developing this exclusive amenity kit line for SWISS First guests and a choice of long- or short-sleeved pyjamas.  ​<br><br>The SWISS First pyjamas continue to be co-developed with Zimmerli and feature a fresh new design. In addition to the familiar long-sleeved version in midnight blue, passengers can now also opt for a short-sleeved version which will be offered in the new colours of bordeaux or chocolate. Together with their pyjamas, passengers will also receive new slippers, provided in enhanced quality.<br><br>True to SWISS’ philosophy and strategic vision, the pyjamas are made with 100% BCI cotton, in which “BCI a not-for-profit organisation stewarding the global Better Cotton standards, and bringing together cotton’s complex supply chain, from the farmers to the retailers. The Better Cotton Standard System is a holistic approach to sustainable cotton production covering all three pillars of sustainability: environmental, social and economic.”</p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">Not only are the pyjamas sustainably made, the look and feel is simple yet refined, understated and with a luxurious feel. They are made with the utmost care to ensure the maximum comfort. Each set comes in four sizes and a special Zimmerli tote bag is available for guests who wish to bring their pyjamas home to be enjoyed long after the flight. To further reduce packaging, the full set is wrapped in a nice silk ribbon to be presented as a gift to each First guest on SWISS.</p>
+          </div>
+          </sc-if>
+          <sc-if value="{{ detail.isP8 }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top: 40px;">
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 0;"><b>Marking the first time Zimmerli-branded amenity kits take to the skies, SWISS First now offers a fully recycled amenity kit collection featuring Swiss brands Soeder, Rohner and VIU, alongside an exclusive Sisley skincare set.</b></p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">SWISS and Zimmerli of Switzerland, a renowned Swiss luxury company, have extended their partnership by developing this exclusive amenity kit line for SWISS First guests and a choice of long- or short-sleeved pyjamas. This is the first time that Zimmerli-branded amenity kits have taken to the skies. <br><br>The new SWISS First amenity kits include a dental care set plus face and hand creams from Swiss natural care product manufacturer Soeder. Next to premium care products, SWISS relies on other renowned Swiss brands like high-quality socks from Rohner and a microfiber towel from VIU. All the new amenity kits are made entirely of recycled materials and are offered in black, bordeaux or warm-grey, with different models provided on SWISS outbound and inbound flights.</p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">The new amenity kits come in a simple, timeless and sophisticated design, reflecting Zimmerli’s outstanding craftsmanship. The four designs in three different colorways change regularly onboard to offer guests a varied experience. In addition, the bags are made of 100% recycled material and reflect the shared vision of sustainability of Zimmerli and SWISS.<br><br>The kit comes with an exclusive skincare set from the prestigious french brand Sisley.</p>
+          </div>
+          </sc-if>
+          <sc-if value="{{ detail.isP9 }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top: 40px;">
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 0;"><b>Three Ghent-based female entrepreneurs, Griet Aesaert, Barbara Geusens and Elisia Poelman, joined forces to design a rotating, collectible amenity kit for Brussels Airlines Business Class, celebrating Belgian craftsmanship with a new bag and lining every six months.</b></p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">Clip brings together three young female Belgian entrepreneurs for the new Brussels Airlines Business Class kits.  ​<br><br>It’s time for three eminent entrepreneurs from Ghent to design the amenity kit for business class passengers on Brussels Airlines’ long haul flights. Handbag designer Griet Aesaert, skincare expert Barbara Geusens of Nomige and artist Elisia Poelman worked together to create an exceptional item.</p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">Brussels Airlines aims to create a boutique hotel experience in the sky. “A collaboration with three independent entrepreneurs fits perfectly. It also underlines our Belgitude, where we show the world the best of Belgium”, says Sandy Coenen, Inflight Product Equipment Manager at Brussels Airlines.  “These three ladies understood perfectly what we need. They were so enthusiast and had such a positive attitude during each interaction we had. They have different backgrounds, and a shared passion for design, style, and comfort. They created a unique collector’s item.”<br><br>The collaboration between Brussels Airlines and the craftswomen is set-up to showcase a different bag and lining (new painting) every six months. Passengers can collect various kits throughout the program and inherit this unique collection.</p>
+          </div>
+          </sc-if>
+          <sc-if value="{{ detail.isP10 }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top: 40px;">
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 0;"><b>Clip partnered with English heritage brands William Edwards and Robert Welch to craft a bespoke tableware and cutlery collection, completed with Chilewich placemats for an experience of understated luxury on flights to the Maldives.</b></p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">We are proud to supply luxury inflight tableware for Beond, the world’s premium leisure airline. <br><br>Clip teamed up with English brand William Edwards to create a bespoke tableware collection infused with old-world refinement and traditional craftsmanship. The collection consists of fine China with subtle golden watermark patterns. Every piece of the set incarnates understated luxury.</p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">In addition, the cutlery chosen further enhances the onboard experience. The cutlery was developed in partnership with Robert Welch, a heritage English manufacturer. True to the silversmithing DNA of the brand, every element is finely polished and shaped for a comfortable hold, beauty, ease-of-use, and efficient to be carried onboard an aircraft.<br><br>Beautiful Chilewich placemats and elegant leadfree crystal glassware complete the offering available to passengers on their Beond flights to the stunning islands of the Maldives.</p>
+          </div>
+          </sc-if>
+          <sc-if value="{{ detail.isP11 }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top: 40px;">
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 0;"><b>Clip partnered with English heritage brands William Edwards and Robert Welch to create a bespoke fine bone China and cutlery collection, blending old-world craftsmanship with the refinement to serve both Western and Asian cuisine onboard.</b></p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">We are proud to introduce the comprehensive first class service equipment for Premium Taiwan carrier Starlux.  ​  Starlux wanted only the very best to serve both Western and Asian food onboard their brand new first class. Clip teamed up with English brand William Edwards to create a bespoke collection infused with old world refinement and traditional craftsmanship.</p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">Fine bone China, subtle white on white decor inlayed in the glazing, and matte gold fillet highlighting them rims: every piece of the set incarnates understated luxury.<br><br>Further enhancing the experience is the cutlery, developed in partnership with Robert Welch, another heritage English brand. True to the silversmithing DNA of the brand, every element is finely polished and shaped for a comfortable hold, while their hollow core make them incredibly light, both nice to use and efficient to be carried onboard an aircraft.</p>
+          </div>
+          </sc-if>
+          <sc-if value="{{ detail.isP12 }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top: 40px;">
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 0;"><b>Developed with Italian brand Guzzini, EVA Air's Premium Economy tableware pairs signature transparent materials with subtle Taiwanese cultural motifs, using durable, sustainable materials to reduce single-use plastics across the tray, bowls, cup and casserole.</b></p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">Developed in partnership with the Italian brand Guzzini, the EVA Air Premium Economy Class design combines the brand’s signature elegant transparent material and cultural inspirations of Taiwan, such as the discreet tone-on-tone tea leaf pattern and asymmetrical lines that reference contemporary architectural landmarks of the island.<br><br>The tableware is elegant, durable, and functional, made from high-quality materials with sophisticated sculptural design, helping to reduce the use of single-use plastics. Every design choice centered on the comfort of passengers and enhancement the meal experience on board.</p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">The tray, long plate, two-color bowl, and cup are made from injection plastic. The glass bowl complements the two-color plastic bowl; the main casserole is made from lightweight china; and, the paper liner and napkin are made from eco-friendly paper.</p>
+          </div>
+          </sc-if>
+          <sc-if value="{{ detail.isP13 }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top: 40px;">
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 0;"><b>Edelweiss's new tableware is made from SiloxiHT, a lightweight, durable ceramic that reduces onboard weight and replacement frequency, with a modular design that pairs refined shapes with local and Swiss culinary specialties.</b></p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">In line with Edelweiss’ constant effort to reduce its carbon footprint, the tableware is made from SiloxiHT lightweight ceramic, a small revolution compared to regular bone china equipment. The lightness of the material helps reduce the load on board while its hardness improves the durability, saving in purchasing frequency.<br><br>The modular and versatile designs offer lots of possibilities of combination with a limited number of elements while the refined shapes and glazing enhance the food experience on board.<br><br>Regarding the food, Edelweiss will offer passengers specialties from its different destinations, with local catering companies cooking dishes. The new dishes will be served alongside a choice of iconic Swiss flavors.</p>
+            
+          </div>
+          </sc-if>
+          <sc-if value="{{ detail.isP14 }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top: 40px;">
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 0;"><b>Designed with Belgian bag brand Kipling, EVA Air's Premium Economy kits feature the brand's iconic crinkle fabric and monkey mascot in collectible designs inspired by Taiwan's landmarks.</b></p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">Premium Economy Class kits for Taiwan’s home carrier, designed in collaboration with Belgian bag brand Kipling, famous for delivering fashionable, lightweight bags for him and her matching all of life’s occasions since 1987.  The kits feature the brand’s iconic crinkle fabric and monkey mascot and will be introduced in multiple collectible colors and styles representing Taiwan’s most famous architectural landmarks, such as Taipei 101.</p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">The kits come with eyeshades, socks, dental set, comb, earplugs and are furnished with New York farm-to-body brand Hudson Made's Morning Shift collection products; consisting of a lip balm and face cream.  What an uplifting and energizing way to jump-start your travels and awaken the senses.<br><br>The grey Kipling kit is the third in a series of collectable designs. The kit features the brand’s iconic crinkled fabric and monkey mascot along with the National Taichung Theatre – one of the iconic buildings in Taiwan. The kits are curated to look and feel valuable, fun and reflect the airline’s and the brand’s branding.</p>
+          </div>
+          </sc-if>
+          <sc-if value="{{ detail.isP15 }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top: 40px;">
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 0;"><b>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b></p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </div>
+          </sc-if>
+          <sc-if value="{{ detail.isP16 }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top: 40px;">
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 0;"></p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">Designed to be taken by passengers, these salt &amp; pepper shakers are well-matched perfectly with their collection, while being a bit out of sync and fun for travelers.<br><br><u>Hong Kong Airlines Shaker<br></u>Business class salt and pepper set inspired by typical Hong Kong food, the har gaw and siu mai dim sum-shaped set is meant to be kept by passengers as a souvenir.</p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;"><u>Flydubai Shaker<br></u>Designed for Business class service, this salt &amp; pepper set is designed with the same soft curves as the rest of the equipment and the airline’s signature shades of blue.<br><br><u>JetBlue Shaker<br></u>Designed for Business Class, this playful salt &amp; pepper shaker is based on the airline’s signature Prism tail fin pattern. The two halves are clipped together to make a handy and intriguing shape and when separated, they conveniently sit on the tray.<br><br><u>WestJet Shaker<br></u>Designed for Business class, the salt and pepper shaker, a popular collectible giveaway amongst passengers, is shaped after the iconic Canadian Three Sisters mountains, in line with the chinaware collection.<br><br><u>Eva Air Shaker<br></u>Designed for Premium Economy tableware, the salt and pepper set references an iconic Taiwanese building, the Taipei 101 tower.</p>
+          </div>
+          </sc-if>
+          <sc-if value="{{ detail.isP17 }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top: 40px;">
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 0;"><b>Inspired by the Canadian outdoors, WestJet's 'Wellness' tableware collection brings restaurant-grade porcelain with a deep-blue gradient reminiscent of mountain lakes, paired with Three Sisters shaped salt and pepper shaker for a collectible finishing touch.</b></p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">Taking inspiration from elements of the great Canadian outdoors, the tableware collection for WestJet is called Wellness and is characterized by soft irregular shapes that create a harmonious and serene landscape on the table.  ​  Wellness definitely elevates the standards of airline equipment: each element is designed for tailor-made passenger experience, enhancing the food perception; while the production quality corresponds to what is used in the best high-end restaurants.   ​</p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">The glazing of the porcelain items plays with a sophisticated matte outside / shiny inside contrast that creates a soft delicate touch.  ​  The expertly crafted deep blue gradient of the hero items, such as the mug and the appetizer plate, reflects the beauty of pristine Canadian mountain lakes.  ​  The hammered metal bread basket and napkin ring and the rock-like quality of the cheese plate reference the rugged beauty of natural elements while being extremely functional.<br><br>The salt and pepper shaker, a popular collectible giveaway amongst passengers, is shaped after the iconic Three Sisters mountains and shows that even the smallest details have been designed with great care.</p>
+          </div>
+          </sc-if>
+          <sc-if value="{{ detail.isP18 }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top: 40px;">
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 0;"><b>Created with Swiss luxury brand Zimmerli, SWISS First's exclusive pyjama set is made from pure natural cotton and finished with a signature Swiss red detail.</b></p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">SWISS new exclusive pyjama set created with a luxury Swiss brand Zimmerli from Switzerland.<br><br>True to SWISS’ philosophy, the pyjamas are made of pure natural cotton fibers which are processed with the utmost care to ensure the maximum comfort.   ​<br><br>The refined minimal design puts emphasis on wearability and comfort on the skin – with a signature Swiss red detail on the pocket and the pants. Only available when flying on SWISS First Class, the exclusively-designed set comes in a convenient pouch and are an icon of Swiss understated quality.</p>
+            
+          </div>
+          </sc-if>
+          <sc-if value="{{ detail.isP19 }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top: 40px;">
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 0;"><b>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b></p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </div>
+          </sc-if>
+          <sc-if value="{{ detail.isP20 }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top: 40px;">
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 0;"><b>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b></p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </div>
+          </sc-if>
+          <sc-if value="{{ detail.isP21 }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top: 40px;">
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 0;"><b>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b></p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </div>
+          </sc-if>
+          <sc-if value="{{ detail.isP22 }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top: 40px;">
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 0;"><b>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b></p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </div>
+          </sc-if>
+          <sc-if value="{{ detail.isP23 }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top: 40px;">
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 0;"><b>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b></p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </div>
+          </sc-if>
+          <sc-if value="{{ detail.isP24 }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top: 40px;">
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 0;"><b>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b></p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </div>
+          </sc-if>
+          <sc-if value="{{ detail.isP25 }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top: 40px;">
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 0;"><b>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b></p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p style="font-size: 16px; line-height: 1.65; color: var(--body); max-width: 62ch; margin: 24px 0 0 0;">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </div>
+          </sc-if>
+        </div>
+        <sc-if value="{{ detail.isCAL }}" hint-placeholder-val="{{ false }}">
+        <div ref="{{ galleryRef }}" style="display: flex; flex-direction: column; gap: 16px;">
+          <img loading="lazy" decoding="async" src="uploads/opt/260601_CAL_hero-item-plumblossom.webp" alt="Butter dish, salt and pepper shakers and propeller utensil with plum blossom" style="width: 100%; height: auto; display: block;">
+          <div style="display: grid; grid-template-columns: minmax(0,1fr) minmax(0,2fr); gap: 16px;">
+            <div style="position: relative; overflow: hidden;"><img loading="lazy" decoding="async" src="./260526_cal_cutlery-brown-mtu5renq-x5zi.webp" alt="Stainless-steel cutlery" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; display: block;"></div>
+            <div style="aspect-ratio: 5 / 4; overflow: hidden;"><img loading="lazy" decoding="async" src="uploads/web/260601_CAL_setup.webp" alt="Tray setup" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; display: block;"></div>
+          </div>
+          <img loading="lazy" decoding="async" src="uploads/web/260601_CAL_topview-lantern-27353c07.webp" alt="Top view of mugs, glassware, cutlery and tray" style="width: 100%; height: auto; display: block;">
+          <img loading="lazy" decoding="async" src="uploads/web/260601_CAL_Overview.webp" alt="Collection overview" style="width: 100%; height: auto; display: block;">
+          </div>
+        </sc-if>
+        <sc-if value="{{ detail.isP4 }}" hint-placeholder-val="{{ false }}">
+        <div ref="{{ galleryRef }}" style="display: flex; flex-direction: column; gap: 16px;">
+          <div style="display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 16px;">
+            <div style="aspect-ratio: 3 / 4; overflow: hidden;"><img loading="lazy" decoding="async" src="uploads/web/FLYDUBAI-headphone-red-light.webp" alt="Headphone floating on orange background" style="width: 100%; height: 100%; object-fit: cover; display: block;"></div>
+            <div style="aspect-ratio: 3 / 4; overflow: hidden;"><img loading="lazy" decoding="async" src="uploads/web/FLYDUBAI-headphone-woman.webp" alt="Woman wearing the Flydubai headphone" style="width: 100%; height: 100%; object-fit: cover; display: block;"></div>
+          </div>
+          <img loading="lazy" decoding="async" src="uploads/opt/FLYDUBAI-exploded-view.webp" alt="Exploded view of the modular headphone" style="width: 100%; height: auto; display: block;">
+        </div>
+        </sc-if>
+        <sc-if value="{{ detail.isP18 }}" hint-placeholder-val="{{ false }}">
+        <div ref="{{ galleryRef }}" style="display: flex; flex-direction: column; gap: 16px;">
+          <img loading="lazy" decoding="async" src="uploads/swiss-pyjama-1.webp" alt="SWISS First Zimmerli pyjama and pouch on marble" style="width: 100%; height: auto; display: block;">
+          <div style="display: flex; gap: 16px;">
+            <img loading="lazy" decoding="async" src="uploads/swiss-pyjama-2.webp" alt="Zimmerli for SWISS First pyjama top detail" style="flex: 1.406 1 0; min-width: 0; width: 100%; height: auto; display: block;">
+            <img loading="lazy" decoding="async" src="uploads/swiss-pyjama-3.webp" alt="SWISS First passenger wearing the Zimmerli pyjama" style="flex: 1.499 1 0; min-width: 0; width: 100%; height: auto; display: block;">
+          </div>
+        </div>
+        </sc-if>
+        <sc-if value="{{ detail.isP17 }}" hint-placeholder-val="{{ false }}">
+        <div ref="{{ galleryRef }}" style="display: flex; flex-direction: column; gap: 16px;">
+          <img loading="lazy" decoding="async" src="uploads/westjet-2.webp" alt="WestJet Business class tableware with food" style="width: 100%; height: auto; display: block;">
+          <div style="display: flex; gap: 16px;">
+            <img loading="lazy" decoding="async" src="uploads/westjet-1.webp" alt="WestJet Three Sisters salt and pepper shakers" style="flex: 0.563 1 0; min-width: 0; width: 100%; height: auto; display: block;">
+            <img loading="lazy" decoding="async" src="uploads/westjet-mug.webp" alt="WestJet blue glazed mug" style="flex: 0.666 1 0; min-width: 0; width: 100%; height: auto; display: block;">
+          </div>
+        </div>
+        </sc-if>
+        <sc-if value="{{ detail.isP16 }}" hint-placeholder-val="{{ false }}">
+        <div ref="{{ galleryRef }}" style="display: flex; flex-direction: column; gap: 16px;">
+          <div style="display: flex; gap: 16px;">
+            <img loading="lazy" decoding="async" src="uploads/shakers-1.webp" alt="Hong Kong Airlines dim sum salt and pepper shakers" style="flex: 1.501 1 0; min-width: 0; width: 100%; height: auto; display: block;">
+            <img loading="lazy" decoding="async" src="uploads/shakers-2.webp" alt="Flydubai salt and pepper shakers" style="flex: 1.499 1 0; min-width: 0; width: 100%; height: auto; display: block;">
+          </div>
+          <img loading="lazy" decoding="async" src="uploads/shakers-3.webp" alt="JetBlue pepper shaker" style="width: 100%; height: auto; display: block;">
+          <div style="display: flex; gap: 16px;">
+            <img loading="lazy" decoding="async" src="uploads/shakers-5.webp" alt="WestJet Three Sisters salt and pepper shakers" style="flex: 0.563 1 0; min-width: 0; width: 100%; height: auto; display: block;">
+            <img loading="lazy" decoding="async" src="uploads/shakers-4.webp" alt="EVA Air Taipei 101 salt and pepper shaker" style="flex: 0.763 1 0; min-width: 0; width: 100%; height: auto; display: block;">
+          </div>
+        </div>
+        </sc-if>
+        <sc-if value="{{ detail.isP15 }}" hint-placeholder-val="{{ false }}">
+        <div ref="{{ galleryRef }}" style="display: flex; flex-direction: column; gap: 16px;">
+          <img loading="lazy" decoding="async" src="uploads/edelweiss-economy-1.webp" alt="Edelweiss Economy desserts in square cups" style="width: 100%; height: auto; display: block;">
+          <div style="display: flex; gap: 16px;">
+            <img loading="lazy" decoding="async" src="uploads/edelweiss-economy-2.webp" alt="Edelweiss Economy meal box with pastry" style="flex: 1.609 1 0; min-width: 0; width: 100%; height: auto; display: block;">
+            <img loading="lazy" decoding="async" src="uploads/edelweiss-economy-3.webp" alt="Edelweiss Economy meal box with illustrated sleeve" style="flex: 1.501 1 0; min-width: 0; width: 100%; height: auto; display: block;">
+          </div>
+          <img loading="lazy" decoding="async" src="uploads/edelweiss-economy-4.webp" alt="Edelweiss Economy meal tray" style="width: 100%; height: auto; display: block;">
+        </div>
+        </sc-if>
+        <sc-if value="{{ detail.isP14 }}" hint-placeholder-val="{{ false }}">
+        <div ref="{{ galleryRef }}" style="display: flex; flex-direction: column; gap: 16px;">
+          <img loading="lazy" decoding="async" src="uploads/eva-kipling-1.webp" alt="EVA Air x Kipling turquoise kit contents" style="width: 100%; height: auto; display: block;">
+          <div style="display: flex; gap: 16px;">
+            <img loading="lazy" decoding="async" src="uploads/eva-kipling-2.webp" alt="EVA Air x Kipling turquoise kit composition" style="flex: 1.296 1 0; min-width: 0; width: 100%; height: auto; display: block;">
+            <img loading="lazy" decoding="async" src="uploads/eva-kipling-3.webp" alt="EVA Air x Kipling red kit in perspective" style="flex: 1.417 1 0; min-width: 0; width: 100%; height: auto; display: block;">
+          </div>
+          <div style="display: flex; gap: 16px;">
+            <img loading="lazy" decoding="async" src="uploads/eva-kipling-4.webp" alt="EVA Air x Kipling blue kit held in hands" style="flex: 0.666 1 0; min-width: 0; width: 100%; height: auto; display: block;">
+            <img loading="lazy" decoding="async" src="uploads/eva-kipling-5.webp" alt="EVA Air x Kipling blue Kaohsiung kit flat lay" style="flex: 1.501 1 0; min-width: 0; width: 100%; height: auto; display: block;">
+          </div>
+        </div>
+        </sc-if>
+        <sc-if value="{{ detail.isP13 }}" hint-placeholder-val="{{ false }}">
+        <div ref="{{ galleryRef }}" style="display: flex; flex-direction: column; gap: 16px;">
+          <img loading="lazy" decoding="async" src="uploads/edelweiss-business-1.webp" alt="Edelweiss Business meat starter with wine" style="width: 100%; height: auto; display: block;">
+          <img loading="lazy" decoding="async" src="uploads/edelweiss-business-2.webp" alt="Edelweiss Business desserts in glass jars" style="width: 100%; height: auto; display: block;">
+          <div style="display: flex; gap: 16px;">
+            <img loading="lazy" decoding="async" src="uploads/edelweiss-business-3.webp" alt="Edelweiss Business muesli with raspberries" style="flex: 1.667 1 0; min-width: 0; width: 100%; height: auto; display: block;">
+            <img loading="lazy" decoding="async" src="uploads/edelweiss-business-4.webp" alt="Edelweiss Business plates with grapes and lemon" style="flex: 1.000 1 0; min-width: 0; width: 100%; height: auto; display: block;">
+          </div>
+          <img loading="lazy" decoding="async" src="uploads/edelweiss-business-5.webp" alt="Edelweiss Business tableware flat lay on red" style="width: 100%; height: auto; display: block;">
+          <img loading="lazy" decoding="async" src="uploads/edelweiss-business-6.webp" alt="Edelweiss Business curry main course" style="width: 100%; height: auto; display: block;">
+          <div style="display: flex; gap: 16px;">
+            <img loading="lazy" decoding="async" src="uploads/edelweiss-business-7.webp" alt="Edelweiss Business vegetarian main course with bread" style="flex: 1.501 1 0; min-width: 0; width: 100%; height: auto; display: block;">
+            <img loading="lazy" decoding="async" src="uploads/edelweiss-business-8.webp" alt="Edelweiss Business tray with berries on red" style="flex: 1.501 1 0; min-width: 0; width: 100%; height: auto; display: block;">
+          </div>
+        </div>
+        </sc-if>
+        <sc-if value="{{ detail.isP12 }}" hint-placeholder-val="{{ false }}">
+        <div ref="{{ galleryRef }}" style="display: flex; flex-direction: column; gap: 16px;">
+          <img loading="lazy" decoding="async" src="uploads/eva-pey-1.webp" alt="EVA Air Premium Economy napkin, bowls and meal" style="width: 100%; height: auto; display: block;">
+          <div style="display: flex; gap: 16px;">
+            <img loading="lazy" decoding="async" src="uploads/eva-pey-2.webp" alt="EVA Air Taipei 101 salt and pepper shaker on tray" style="flex: 0.763 1 0; min-width: 0; width: 100%; height: auto; display: block;">
+            <img loading="lazy" decoding="async" src="uploads/eva-pey-4.webp" alt="EVA Air Premium Economy cup and tableware detail" style="flex: 1.501 1 0; min-width: 0; width: 100%; height: auto; display: block;">
+          </div>
+          <img loading="lazy" decoding="async" src="uploads/eva-pey-3.webp" alt="EVA Air Premium Economy full tray set" style="width: 100%; height: auto; display: block;">
+        </div>
+        </sc-if>
+        <sc-if value="{{ detail.isP11 }}" hint-placeholder-val="{{ false }}">
+        <div ref="{{ galleryRef }}" style="display: flex; flex-direction: column; gap: 16px;">
+          <img loading="lazy" decoding="async" src="uploads/starlux-tableware-4.webp" alt="STARLUX dinner plate and cup set" style="width: 100%; height: auto; display: block;">
+          <div style="display: flex; gap: 16px;">
+            <img loading="lazy" decoding="async" src="uploads/starlux-tableware-2.webp" alt="STARLUX First tableware flat lay" style="flex: 1.333 1 0; min-width: 0; width: 100%; height: auto; display: block;">
+            <img loading="lazy" decoding="async" src="uploads/starlux-tableware-3.webp" alt="STARLUX tableware with teapot and cutlery" style="flex: 1.333 1 0; min-width: 0; width: 100%; height: auto; display: block;">
+          </div>
+          <img loading="lazy" decoding="async" src="uploads/starlux-tableware-5.webp" alt="STARLUX table setting with lidded bowl" style="width: 100%; height: auto; display: block;">
+          <div style="display: flex; gap: 16px;">
+            <img loading="lazy" decoding="async" src="uploads/starlux-tableware-1.webp" alt="STARLUX cup backstamp by William Edwards" style="flex: 1.5 1 0; min-width: 0; width: 100%; height: auto; display: block;">
+            <img loading="lazy" decoding="async" src="uploads/starlux-tableware-6.webp" alt="STARLUX salt and pepper shakers" style="flex: 1.5 1 0; min-width: 0; width: 100%; height: auto; display: block;">
+          </div>
+          <div style="display: flex; gap: 16px;">
+            <img loading="lazy" decoding="async" src="uploads/starlux-tableware-7.webp" alt="STARLUX First caviar service onboard" style="flex: 1.213 1 0; min-width: 0; width: 100%; height: auto; display: block;">
+            <img loading="lazy" decoding="async" src="uploads/starlux-tableware-8.webp" alt="STARLUX plate with Robert Welch cutlery" style="flex: 0.857 1 0; min-width: 0; width: 100%; height: auto; display: block;">
+          </div>
+        </div>
+        </sc-if>
+        <sc-if value="{{ detail.isP10 }}" hint-placeholder-val="{{ false }}">
+        <div ref="{{ galleryRef }}" style="display: flex; flex-direction: column; gap: 16px;">
+          <img loading="lazy" decoding="async" src="uploads/beond-1.webp" alt="Beond teapot pouring into a cup" style="width: 100%; height: auto; display: block;">
+          <div style="display: flex; gap: 16px;">
+            <img loading="lazy" decoding="async" src="uploads/beond-2.webp" alt="Beond full tableware collection" style="flex: 1.501 1 0; min-width: 0; width: 100%; height: auto; display: block;">
+            <img loading="lazy" decoding="async" src="uploads/beond-3.webp" alt="Beond plate, bowl and cup on placemat" style="flex: 1.345 1 0; min-width: 0; width: 100%; height: auto; display: block;">
+          </div>
+          <img loading="lazy" decoding="async" src="uploads/beond-4.webp" alt="Beond table setting on marble" style="width: 100%; height: auto; display: block;">
+        </div>
+        </sc-if>
+        <sc-if value="{{ detail.isP9 }}" hint-placeholder-val="{{ false }}">
+        <div ref="{{ galleryRef }}" style="display: flex; flex-direction: column; gap: 16px;">
+          <div style="display: flex; gap: 16px;">
+            <img loading="lazy" decoding="async" src="uploads/brussels-airlines-team-1.webp" alt="Aesaert founders walking in the Brussels Airlines hangar" style="flex: 1.500 1 0; min-width: 0; width: 100%; height: auto; display: block;">
+            <img loading="lazy" decoding="async" src="uploads/brussels-airlines-team-2.webp" alt="Aesaert founders celebrating at Brussels Airport" style="flex: 1.500 1 0; min-width: 0; width: 100%; height: auto; display: block;">
+          </div>
+          <div style="display: flex; gap: 16px;">
+            <img loading="lazy" decoding="async" src="uploads/brussels-airlines-team-3.webp" alt="Aesaert founders with Brussels Airlines team" style="flex: 1.600 1 0; min-width: 0; width: 100%; height: auto; display: block;">
+            <img loading="lazy" decoding="async" src="uploads/brussels-airlines-team-4.webp" alt="Aesaert founder wearing the eye mask in front of an engine" style="flex: 0.838 1 0; min-width: 0; width: 100%; height: auto; display: block;">
+          </div>
+          <img loading="lazy" decoding="async" src="uploads/brussels-airlines-1.webp" alt="Brussels Airlines kit flat lay with mini dots print" style="width: 100%; height: auto; display: block;">
+          <img loading="lazy" decoding="async" src="uploads/brussels-airlines-2.webp" alt="Brussels Airlines kit items floating" style="width: 100%; height: auto; display: block;">
+          <img loading="lazy" decoding="async" src="uploads/brussels-airlines-3.webp" alt="Brussels Airlines green and burgundy kits with items" style="width: 100%; height: auto; display: block;">
+          <div style="display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 16px;">
+            <img loading="lazy" decoding="async" src="uploads/brussels-airlines-4.webp" alt="Brussels Airlines brown kit composition" style="width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block;">
+            <img loading="lazy" decoding="async" src="uploads/brussels-airlines-5.webp" alt="Brussels Airlines blue kit held in hands" style="width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block;">
+          </div>
+          <img loading="lazy" decoding="async" src="uploads/brussels-airlines-6.webp" alt="Brussels Airlines blue kit exploded view" style="width: 100%; height: auto; display: block;">
+        </div>
+        </sc-if>
+        <sc-if value="{{ detail.isP8 }}" hint-placeholder-val="{{ false }}">
+        <div ref="{{ galleryRef }}" style="display: flex; flex-direction: column; gap: 16px;">
+          <img loading="lazy" decoding="async" src="uploads/swiss-first-sisley.webp" alt="Sisley skincare set for SWISS First" style="width: 100%; height: auto; display: block;">
+          <figure style="margin: 0; position: relative;"><img loading="lazy" decoding="async" src="uploads/swiss-first-kit-2.webp" alt="SWISS First Zimmerli kit contents on pink" style="width: 100%; height: auto; display: block;"><figcaption style="position: absolute; right: 12px; bottom: 10px; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 11px; color: #fff;">©SWISS International Air Lines</figcaption></figure>
+        </div>
+        </sc-if>
+        <sc-if value="{{ detail.isP7 }}" hint-placeholder-val="{{ false }}">
+        <div ref="{{ galleryRef }}" style="display: flex; flex-direction: column; gap: 16px;">
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <figure style="margin: 0; position: relative; aspect-ratio: 1 / 1; overflow: hidden;"><img loading="lazy" decoding="async" src="uploads/thumbnail_SWISS_First_Amenity_Kit_3 (1).webp" alt="SWISS First Zimmerli pyjamas folded on pink" style="width: 100%; height: 100%; object-fit: cover; display: block;"><figcaption style="position: absolute; right: 12px; bottom: 10px; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 11px; color: #fff;">©SWISS International Air Lines</figcaption></figure>
+            <figure style="margin: 0; position: relative; aspect-ratio: 1 / 1; overflow: hidden;"><img loading="lazy" decoding="async" src="uploads/thumbnail_SWISS_First_Amenity_Kit_4.webp" alt="SWISS First slippers, pouch, pyjama and tote bag" style="width: 100%; height: 100%; object-fit: cover; display: block;"><figcaption style="position: absolute; right: 12px; bottom: 10px; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 11px; color: #fff;">©SWISS International Air Lines</figcaption></figure>
+          </div>
+        </div>
+        </sc-if>
+        <sc-if value="{{ detail.isP6 }}" hint-placeholder-val="{{ false }}">
+        <div ref="{{ galleryRef }}" style="display: flex; flex-direction: column; gap: 16px;">
+          <img loading="lazy" decoding="async" src="uploads/STARLUX first class kit - crew-cdcfdfdf.webp" alt="STARLUX crew presenting the First Class kit and Aesop Departure box" style="width: 100%; height: auto; display: block;">
+          <img loading="lazy" decoding="async" src="uploads/STARLUX first class kit - departure kit in cabin-4562c204.webp" alt="STARLUX First Class kit and Aesop products in the cabin" style="width: 100%; height: auto; display: block;">
+        </div>
+        </sc-if>
+        <sc-if value="{{ detail.isP5 }}" hint-placeholder-val="{{ false }}">
+        <div ref="{{ galleryRef }}" style="display: flex; flex-direction: column; gap: 16px;">
+          <img loading="lazy" decoding="async" src="uploads/opt/241121_Vivajet_FrontView2.webp" alt="Vivajet kit contents laid out" style="width: 100%; height: auto; display: block;">
+          <img loading="lazy" decoding="async" src="uploads/opt/241125_VivaJet_flying.webp" alt="Vivajet kit items floating above the pouch" style="width: 100%; height: auto; display: block;">
+        </div>
+        </sc-if>
+        <sc-if value="{{ detail.isP3 }}" hint-placeholder-val="{{ false }}">
+        <div ref="{{ galleryRef }}" style="display: flex; flex-direction: column; gap: 16px;">
+          <img loading="lazy" decoding="async" src="uploads/web/SWISS_Economy_Meal_15.webp" alt="SWISS black Bento box with breakfast" style="width: 100%; height: auto; display: block;">
+          <div style="display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 16px;">
+            <div style="aspect-ratio: 1600 / 2182; overflow: hidden;"><img loading="lazy" decoding="async" src="uploads/web/SWISS_Economy_Meal_12.webp" alt="SWISS black Bento box with pasta" style="width: 100%; height: 100%; object-fit: cover; display: block;"></div>
+            <div style="aspect-ratio: 1600 / 2182; overflow: hidden;"><img loading="lazy" decoding="async" src="uploads/web/SWISS_Economy_Meal_16.webp" alt="SWISS black Bento box with croissant and coffee" style="width: 100%; height: 100%; object-fit: cover; display: block;"></div>
+          </div>
+        </div>
+        </sc-if>
+        <sc-if value="{{ detail.isP2 }}" hint-placeholder-val="{{ false }}">
+        <div ref="{{ galleryRef }}" style="display: flex; flex-direction: column; gap: 16px;">
+          <img loading="lazy" decoding="async" src="uploads/web/EVA-AIR-tray.webp" alt="EVA Air Economy meal tray" style="width: 100%; height: auto; display: block;">
+          <div style="display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 16px;">
+            <div style="aspect-ratio: 3 / 4; overflow: hidden;"><img loading="lazy" decoding="async" src="uploads/web/EVA-AIR-zoom.webp" alt="Green bowl, white dish and cup close-up" style="width: 100%; height: 100%; object-fit: cover; display: block;"></div>
+            <div style="aspect-ratio: 3 / 4; overflow: hidden;"><img loading="lazy" decoding="async" src="uploads/web/EVA-AIR-exploded-view.webp" alt="Exploded view of the tableware set" style="width: 100%; height: 100%; object-fit: cover; display: block;"></div>
+          </div>
+        </div>
+        </sc-if>
+        <sc-if value="{{ detail.isSwissPE }}" hint-placeholder-val="{{ false }}">
+        <div ref="{{ galleryRef }}" style="display: flex; flex-direction: column; gap: 16px;">
+          <img loading="lazy" decoding="async" src="uploads/opt/2tinbox.webp" alt="Closed and open tin boxes" style="width: 100%; height: auto; display: block;">
+          <img loading="lazy" decoding="async" src="uploads/opt/IMG_5602_1200x800px_72dpi.webp" alt="Transparent pouch with socks, earplugs and dental set" style="width: 100%; height: auto; display: block;">
+          <figure style="margin: 0; position: relative;">
+            <img loading="lazy" decoding="async" src="uploads/SWISS_Premium_Economy_Amenity_Kit_1.webp" alt="SWISS Premium Economy amenity kit collection" style="width: 100%; height: auto; display: block;">
+            <figcaption style="position: absolute; right: 12px; bottom: 10px; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 11px; color: #fff;">©Swiss International Air Lines</figcaption>
+          </figure>
+          <img loading="lazy" decoding="async" src="uploads/opt/IMG_5666_1200x800px_72dpi.webp" alt="Kit contents laid out on dark fabric" style="width: 100%; height: auto; display: block;">
+        </div>
+        </sc-if>
+        <sc-if value="{{ detail.isPlaceholderGallery }}" hint-placeholder-val="{{ false }}">
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <div style="aspect-ratio: 3 / 2;"><image-slot id="{{ detail.slotBase }}-g1" shape="rect" placeholder="Image 1"></image-slot></div>
+          <div style="display: grid; grid-template-columns: minmax(0,1fr) minmax(0,2fr); gap: 16px;">
+            <div style="height: 100%;"><image-slot id="{{ detail.slotBase }}-g2" shape="rect" placeholder="Image 2"></image-slot></div>
+            <div style="aspect-ratio: 5 / 4;"><image-slot id="{{ detail.slotBase }}-g3" shape="rect" placeholder="Image 3"></image-slot></div>
+          </div>
+          <div style="aspect-ratio: 3 / 2;"><image-slot id="{{ detail.slotBase }}-g4" shape="rect" placeholder="Image 4"></image-slot></div>
+        </div>
+        </sc-if>
+        </div>
+      </section>
+    
+    <section style="padding: 28px 32px 72px 32px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap;">
+      <a href="#" onClick="{{ detail.goPrev }}" style="font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 12px; letter-spacing: 0.04em; color: var(--ink);" style-hover="color:var(--accent)">← {{ detail.prevTitle }}</a>
+      <a href="#" onClick="{{ detail.goNext }}" style="font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 12px; letter-spacing: 0.04em; color: var(--ink);" style-hover="color:var(--accent)">{{ detail.nextTitle }} →</a>
+    </section>
+  </main>
+  </sc-if>
+  
+  
+
+  <sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
+  <main style="flex: 1;">
+    <section style="min-height: 40vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 48px 32px;">
+      <div style="font-family: Poppins; font-size: 19px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink); text-align: center; margin-bottom: 32px">About us</div>
+      <p style="font-size: clamp(26px,3.6vw,44px); line-height: 1.25; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); max-width: 34ch; margin: 0 auto 0 auto;">We create amenity kits, tableware equipment, textiles, skincare products &amp; sustainable solutions.</p>
+      <p style="font-size: clamp(16px,1.7vw,20px); line-height: 1.55; color: var(--body); max-width: 52ch; margin: 24px auto 0 auto;">Clip was founded in 2015 by inflight equipment expert Cindy Lam and industrial designers Big-Game. Our goal is to propose all items airlines need to take care of their travelers, providing adapted and tailor-made solutions.</p>
+    </section>
+
+    <section style="padding: 88px 32px;">
+      <div style="max-width: 1280px; margin: 0 auto;">
+        <div style="font-family: Poppins; font-size: 19px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink); text-align: center; margin-bottom: 32px; height: 44px">Our team</div>
+        <div data-about-row="" style="display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 48px; align-items: center;">
+          <p style="font-size: clamp(18px,2.1vw,25px); line-height: 1.5; color: var(--body); margin: 0; width: 632px">We are a combined force of inflight equipment experts and experienced industrial designers who have worked extensively with international brands.</p>
+          <div style="width: 100%; aspect-ratio: 4 / 3; overflow: hidden; background: var(--surface);">
+            <img loading="lazy" decoding="async" src="uploads/image6.webp" alt="Clip team at work in the studio" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          </div>
+        </div>
+        <div data-about-row="" style="display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 48px; align-items: center; margin-top: 56px;">
+          <div style="width: 100%; aspect-ratio: 4 / 3; overflow: hidden; background: var(--surface);">
+            <img loading="lazy" decoding="async" src="uploads/image5.webp" alt="Designers reviewing sketches and colour swatches" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          </div>
+          <p style="font-size: clamp(18px,2.1vw,25px); line-height: 1.5; color: var(--body); margin: 0; width: 632px">Our aim is to provide simple, effective, aesthetically functional, value-adding solutions and services for our highly appreciated airline customers from initial concept to final product delivery.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="process-section" style="padding: 88px 32px; display: flex; flex-direction: column; align-items: center;">
+      <div id="process-title" style="font-family: Poppins; font-size: 19px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink); margin-bottom: 32px; text-align: center;">Our process</div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); max-width: 1200px; width: 100%;">
+        <div style="background: var(--surface-alt); padding: 32px 24px; text-align: center;"><img loading="lazy" decoding="async" src="uploads/ICONES_HAND INNOV.webp" alt="" style="width: 48px; height: 48px; margin: 0 auto 16px auto; display: block; filter: var(--logo-filter);"><div style="font-size: 16px; font-weight: 600; letter-spacing: 0.02em;">Innovation &amp; problem solving</div><p style="font-size: 14px; line-height: 1.5; color: var(--body); margin: 12px 0 0 0;">We meticulously assess all aspects of the product lifecycle to come up with innovative solutions.</p></div>
+        <div style="background: var(--surface-alt); padding: 32px 24px; text-align: center;"><img loading="lazy" decoding="async" src="uploads/ICONES_PEN.webp" alt="" style="width: 48px; height: 48px; margin: 0 auto 16px auto; display: block; filter: var(--logo-filter);"><div style="font-size: 16px; font-weight: 600; letter-spacing: 0.02em;">Design</div><p style="font-size: 14px; line-height: 1.5; color: var(--body); margin: 12px 0 0 0;">Our designers create tailor-made, cost-effective items that enhance the onboard experience.</p></div>
+        <div style="background: var(--surface-alt); padding: 32px 24px; text-align: center;"><img loading="lazy" decoding="async" src="uploads/ICONES_USINE.webp" alt="" style="width: 48px; height: 48px; margin: 0 auto 16px auto; display: block; filter: var(--logo-filter);"><div style="font-size: 16px; font-weight: 600; letter-spacing: 0.02em;">Produce</div><p style="font-size: 14px; line-height: 1.5; color: var(--body); margin: 12px 0 0 0;">We manage the complete production process seamlessly from sourcing to final production.</p></div>
+        <div style="background: var(--surface-alt); padding: 32px 24px; text-align: center;"><img loading="lazy" decoding="async" src="uploads/ICONES_BOX.webp" alt="" style="width: 48px; height: 48px; margin: 0 auto 16px auto; display: block; filter: var(--logo-filter);"><div style="font-size: 16px; font-weight: 600; letter-spacing: 0.02em;">Deliver</div><p style="font-size: 14px; line-height: 1.5; color: var(--body); margin: 12px 0 0 0;">We manage all logistics to ensure an efficient product dispatch adapted to all airlines requirement.</p></div>
+        <div style="background: var(--surface-alt); padding: 32px 24px; text-align: center;"><img loading="lazy" decoding="async" src="uploads/ICONES_BUBBLES.webp" alt="" style="width: 48px; height: 48px; margin: 0 auto 16px auto; display: block; filter: var(--logo-filter);"><div style="font-size: 16px; font-weight: 600; letter-spacing: 0.02em;">Customer service</div><p style="font-size: 14px; line-height: 1.5; color: var(--body); margin: 12px 0 0 0;">We guarantee a complete support throughout the process and product lifecycle.</p></div>
+      </div>
+    </section>
+
+    <section id="trusted-section" style="padding: 40px 0; overflow: hidden; display: flex; flex-direction: column; justify-content: center;">
+      
+      <div id="trusted-title" style="font-family: Poppins; font-size: 19px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); text-align: center; margin-bottom: 32px; padding: 0 32px; height: 91px">Trusted by</div><div style="display: flex; width: max-content; align-items: center; gap: 64px; animation: clip-marquee 70s linear infinite; will-change: transform; backface-visibility: hidden;">
+        <sc-for list="{{ marqueeClients }}" as="c" hint-placeholder-count="22" style="align-self: auto">
+          <img loading="lazy" decoding="async" ref="{{ c.setRef }}" alt="{{ c.name }}" style="height: {{ c.hpx }}; width: auto; display: block; flex-shrink: 0; filter: var(--logo-filter);">
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="padding: 56px 32px;">
+      <div style="font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 19px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); text-align: center; margin-bottom: 32px">Our awards</div>
+      <div style="display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 24px;">
+        <sc-for list="{{ awards }}" as="a" hint-placeholder-count="8">
+          <div class="award-card" style="border-top: 1px solid var(--border); padding-top: 14px;">
+            <div style="width: 100%; aspect-ratio: 4 / 3; margin-bottom: 14px; overflow: hidden; background: var(--surface);">
+              <sc-if value="{{ a.hasImg }}" hint-placeholder-val="{{ true }}">
+                <img loading="lazy" decoding="async" ref="{{ a.setRef }}" alt="{{ a.title }}" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+              </sc-if>
+              <sc-if value="{{ a.noImg }}" hint-placeholder-val="{{ false }}">
+                <image-slot id="award-{{ $index }}" shape="rect" placeholder="Drop the award-winning product"></image-slot>
+              </sc-if>
+            </div>
+            <div style="font-size: 12px; color: var(--muted);">{{ a.date }}</div>
+            <div style="font-size: 15px; font-weight: 600; margin-top: 6px;">{{ a.title }}</div>
+            <p style="font-size: 14px; line-height: 1.5; color: var(--body); margin: 8px 0 0 0;">{{ a.body }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isNews }}" hint-placeholder-val="{{ false }}">
+  <main style="flex: 1;">
+    <section style="padding: 56px 32px 32px 32px; border-bottom: 1px solid var(--ink);">
+      
+      <h1 style="font-size: clamp(28px,4vw,48px); line-height: 1; letter-spacing: -0.025em; font-weight: 600; margin: 16px 0 0 0;">They talk about us.</h1>
+      <p style="font-size: 15px; line-height: 1.55; color: var(--body); max-width: 60ch; margin: 16px 0 0 0;">Press features, launches and awards — {{ newsCount }} mentions and counting.</p>
+    </section>
+    <section id="news-section" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px 32px; padding: 12px 32px 64px 32px; border-bottom: 1px solid var(--ink);">
+      <sc-for list="{{ news }}" as="n" hint-placeholder-count="8">
+        <a href="{{ n.href }}" target="{{ n.target }}" onClick="{{ n.onClick }}" style="{{ n.linkStyle }}" style-hover="background:var(--hover-surface)">
+          <div style="display: grid; grid-template-columns: 140px minmax(0,1fr); gap: 24px; align-items: start;">
+            <div style="width: 140px; height: 140px; overflow: hidden; background: var(--surface);">
+              <img loading="lazy" decoding="async" ref="{{ n.setRef }}" alt="{{ n.title }}" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px; height: 140px; overflow: hidden;">
+              <div style="display: flex; justify-content: space-between; gap: 10px; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);">
+                <span>{{ n.date }}</span><span>{{ n.source }}</span>
+              </div>
+              <div style="font-size: 17px; font-weight: 500; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">{{ n.title }}</div>
+              <p style="font-size: 14px; line-height: 1.5; color: var(--body); margin: 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">{{ n.body }}</p>
+            </div>
+          </div>
+        </a>
+      </sc-for>
+    </section>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}">
+  <main style="flex: 1; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); border-bottom: 1px solid var(--ink);">
+    <div style="padding: 56px 32px; border-right: 1px solid var(--border);">
+      <div style="font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted);">CONTACT US</div>
+      <h1 style="font-size: clamp(28px,4vw,48px); line-height: 1; letter-spacing: -0.025em; font-weight: 600; margin: 16px 0 24px 0;">We would love to hear from you!</h1>
+      
+      <div style="margin-top: 32px; display: grid; gap: 1px; background: var(--border); border: 1px solid var(--border);">
+        <div style="background: var(--surface-alt); padding: 14px 16px;"><div style="font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);">Email</div><div style="font-size: 15px; margin-top: 4px;">cindy@cliponboard.com</div></div>
+        <div style="background: var(--surface-alt); padding: 14px 16px;"><div style="font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);">Follow</div><div style="margin-top: 8px; display: flex; gap: 10px;"><a href="https://www.linkedin.com/company/clip-ltd/" style="font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid var(--ink); border-radius: 999px; padding: 8px 16px; color: var(--ink);" style-hover="background:var(--ink);color:var(--surface-alt)">LinkedIn</a><a href="https://www.instagram.com/clip_ltd/" style="font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid var(--ink); border-radius: 999px; padding: 8px 16px; color: var(--ink);" style-hover="background:var(--ink);color:var(--surface-alt)">Instagram</a></div></div>
+      </div>
+    </div>
+    <form onSubmit="{{ noSubmit }}" style="padding: 56px 32px; display: grid; gap: 16px; align-content: start; background: var(--form-bg);">
+      <label style="display: grid; gap: 6px;"><span style="font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);">Airline</span><input type="text" style="font-family: inherit; font-size: 15px; padding: 11px 12px; border: 1px solid var(--border); background: var(--surface-alt); color: var(--ink);"></label>
+      <label style="display: grid; gap: 6px;"><span style="font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);">Your name and role</span><input type="text" style="font-family: inherit; font-size: 15px; padding: 11px 12px; border: 1px solid var(--border); background: var(--surface-alt); color: var(--ink);"></label>
+      <label style="display: grid; gap: 6px;"><span style="font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);">Email</span><input type="email" style="font-family: inherit; font-size: 15px; padding: 11px 12px; border: 1px solid var(--border); background: var(--surface-alt); color: var(--ink);"></label>
+      <label style="display: grid; gap: 6px;"><span style="font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);">What do you need</span><textarea rows="5" style="font-family: inherit; font-size: 15px; padding: 11px 12px; border: 1px solid var(--border); background: var(--surface-alt); color: var(--ink); resize: vertical;"></textarea></label>
+      <button type="submit" style="font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; background: var(--ink); color: var(--surface-alt); border: 1px solid var(--ink); padding: 14px 18px; cursor: pointer; justify-self: start;" style-hover="background:var(--body)">Send brief</button>
+    </form>
+  </main>
+  <main style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); border-bottom: 1px solid var(--border);">
+    
+    
+  </main>
+  <main style="border-bottom: 1px solid var(--ink); padding: 40px 32px;">
+    <h1 style="font-size: clamp(28px,4vw,48px); line-height: 1; letter-spacing: -0.025em; font-weight: 600; margin: 0 0 24px 0; height: 69px">Our locations</h1>
+    <div ref="{{ worldMapRef }}" style="position: relative; aspect-ratio: 16/7; border: 1px solid var(--border); z-index: 94">
+      <div style="position: absolute; right: 12px; top: 12px; display: flex; flex-direction: column; gap: 6px; z-index: 10;">
+        <button onClick="{{ zoomIn }}" aria-label="Zoom in" style="width: 30px; height: 30px; border: 1px solid var(--ink); border-radius: 50%; background: var(--surface-alt); color: var(--ink); font-size: 16px; line-height: 1; cursor: pointer;" style-hover="background:var(--ink);color:var(--surface-alt)">+</button>
+        <button onClick="{{ zoomOut }}" aria-label="Zoom out" style="width: 30px; height: 30px; border: 1px solid var(--ink); border-radius: 50%; background: var(--surface-alt); color: var(--ink); font-size: 16px; line-height: 1; cursor: pointer;" style-hover="background:var(--ink);color:var(--surface-alt)">−</button>
+      </div>
+    </div>
+  </main>
+  </sc-if>
+
+  <footer style="display: flex; flex-wrap: wrap; gap: 16px 32px; justify-content: space-between; align-items: center; padding: 20px 24px; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);">
+    <span>© 2026 Clip Limited — Smart solutions onboard</span>
+    <span style="display: flex; gap: 18px;"><a href="https://www.linkedin.com/company/clip-ltd/">LinkedIn</a><a href="https://www.instagram.com/clip_ltd/">Instagram</a><a href="https://www.facebook.com/clipsmartsolutionsonboard/">Facebook</a></span>
+  </footer>
+</div>
+
+
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1000}}">
+const W = "https://static.wixstatic.com/media/";
+const img = (id) => id.indexOf("uploads/") === 0 ? ((document.querySelector('img[data-asset="' + id + '"]') || {}).src || id) : W + id + "/v1/fill/w_470,h_470,q_90,enc_avif,quality_auto/" + id;
+
+const subtitleOf = (p) => {
+  if (p.sub) return p.sub;
+  const tc = (s) => s.replace(/\b\w/g, c => c.toUpperCase());
+  const cat = p.cat === "Amenity kits" ? "Amenity Kit" : p.cat;
+  return p.cabin ? tc(p.cabin) + " Class " + tc(cat) : tc(cat);
+};
+
+const PROJECTS = [
+  { id: 26, year: "2026", client: "China Airlines", title: "China Airlines Business Class Tableware", cat: "Tableware", cabin: "Business", i: "uploads/web/260601_CAL_Flower-items-139bb68b.webp", context: "Our newest programme, currently in production for China Airlines' Business Class service.", role: "Full case study and photography to follow once the collection is signed off.", result: "Full case study and photography to follow once the collection is signed off." },
+  { id: 1, hero: "uploads/opt/IMG_5649_1200x800px_72dpi.webp", client: "Swiss", title: "SWISS Premium Economy kits", cat: "Amenity kits", cabin: "Premium economy", i: "72975e_66eac24a1ab744de8cdf1d32b02e852b~mv2.jpg", context: "Premium economy needed a kit that felt considered without business-class cost.", role: "Design, sourcing, tooling and production of the tin, pouch and contents.", result: "Reusable tin retained by passengers; content cost held to target." },
+  { id: 2, client: "EVA Air", title: "EVA Air Economy tableware", cat: "Tableware", cabin: "Economy", i: "72975e_5717cc0d23a2443f8888117eb28b262e~mv2.jpg", context: "Economy service on Taiwanese routes with tight tray weight limits.", role: "Pattern design with the airline brand team, chinaware engineering, supply.", result: "Full tray set within weight budget, produced in repeat runs." },
+  { id: 3, client: "Swiss", title: "SWISS black Bento box", cat: "Tableware", cabin: "Economy", i: "72975e_e9f64138ab0041dfa00781a13d5666ee~mv2.jpeg", context: "Single-use economy trays were driving cabin waste and cost.", role: "Product design and injection tooling for a rotable box.", result: "Rated for around 100 service cycles; entrée, dessert and cheese in one unit." },
+  { id: 4, client: "flydubai", title: "Flydubai modular headphone", cat: "Headphones", cabin: "Business", i: "uploads/opt/FLYDUBAI-headphone-heading2-noblur-6161f640.webp", context: "Headphone attrition meant whole units discarded over one broken part.", role: "Industrial design and engineering of a fully replaceable architecture.", result: "Lifecycle cost down 50% or more; tool-free swaps by cabin crew." },
+  { id: 5, client: "Vivajet", title: "VIVAJET Private jet kit", cat: "Amenity kits", cabin: "First", i: "72975e_bfc4456ce5654511943c861bcf191eaa~mv2.jpg", hero: "uploads/241125_VivaJet_Side-low.webp", sub: "Private Jet Amenity Kit", context: "Charter operator wanting a hospitality-grade kit for short private flights.", role: "Concept, brand partnership and small-batch production.", result: "French skincare kit sized for a jet galley's limited stowage." },
+  { id: 6, client: "Starlux", title: "STARLUX departure kit with Aesop", cat: "Amenity kits", cabin: "First", i: "72975e_a82396f49e504ac685663d2e29bbe952~mv2.jpg", hero: "uploads/STARLUX first class kit - departure kit.webp", heroZoom: 1.1, context: "Long-haul launch cabin needing a signature departure ritual.", role: "Kit design, wood and textile sourcing, partner negotiation.", result: "Wood brush and mirror set produced with Aesop skincare." },
+  { id: 7, client: "Swiss", title: "SWISS First x Zimmerli pyjama", cat: "Textiles", cabin: "First", i: "72975e_f3adfb1fbc654a3a9a7c5f680b9c2757~mv2.jpg", hero: "uploads/opt/240130_SWISS_shoot1.webp", sub: "First Class Pyjama", context: "First class sleepwear expected to match a Swiss luxury standard.", role: "Design with Zimmerli, cotton sourcing, sizing and packing.", result: "Navy set with red detailing, delivered in graded sizes." },
+  { id: 8, client: "Swiss", title: "SWISS First amenity kits x Zimmerli", cat: "Amenity kits", cabin: "First", i: "72975e_0361be7952354e7a924d7d9a65097036~mv2.png", hero: "uploads/swiss-first-kit-1.webp", context: "A kit bag intended to be kept and reused after the flight.", role: "Material selection, leather sourcing, kit assembly.", result: "Collectible bag co-branded with a Swiss textile house." },
+  { id: 9, client: "Brussels Airlines", title: "BRUSSELS AIRLINES kits", cat: "Amenity kits", cabin: "Business", i: "72975e_7f3c7ffcf12a45b5afa6d5e3f4b8182b~mv2.png", hero: "uploads/opt/brussels-airlines-hero.webp", context: "Business cabin brief around Belgian makers and artists.", role: "Artist collaboration, leather bag design, cosmetics partnership.", result: "Kit built entirely from Belgian brands and a commissioned painting." },
+  { id: 10, client: "Beond", title: "BeOnd premium tableware", cat: "Tableware", cabin: "First", i: "72975e_0d8043f6bcc04babbc73e38e56658b69~mv2.png", sub: "Premium Tableware", hero: "uploads/beond-hero.webp", context: "New premium leisure airline defining its onboard service from zero.", role: "Service design with William Edwards and Robert Welch, supply.", result: "Bronze-decor chinaware and cutlery service for first class." },
+  { id: 11, client: "Starlux", title: "STARLUX First class tableware", cat: "Tableware", cabin: "First", i: "72975e_0c6a6e4d348b4fd1b18b976509f8b221~mv2.png", hero: "uploads/starlux-tableware-hero.webp", context: "First class service requiring restaurant-grade presentation.", role: "Decor design, partner manufacture, certification and delivery.", result: "Gold-decor chinaware with matched cutlery." },
+  { id: 12, client: "EVA Air", title: "EVA Air x Guzzini Premium Economy tableware", cat: "Tableware", cabin: "Premium economy", i: "72975e_250fc649a80646cb878220ec14fd2019~mv2.jpg", hero: "uploads/opt/eva-pey-hero.webp", context: "Premium economy needed distinction from economy at low added weight.", role: "Design with Guzzini, including Taipei 101 shakers.", result: "Grey and transparent set produced in Italy." },
+  { id: 13, client: "Edelweiss", title: "Edelweiss Business class tableware", cat: "Tableware", cabin: "Business", i: "uploads/EDW_imagecarroussel.webp", hero: "uploads/edelweiss-business-hero.webp", context: "Fuel-driven push to reduce cabin equipment weight.", role: "Chinaware redesign for weight and versatility.", result: "Lighter set usable across several service configurations." },
+  { id: 15, client: "Edelweiss", title: "Edelweiss Economy tableware", cat: "Tableware", cabin: "Economy", i: "72975e_165864b2e86148bcb97ccf6a8fae903f~mv2_d_8133_5422_s_4_2.jpg", hero: "uploads/EDW_image16-9.webp", context: "Economy meal service with fast turnarounds and waste targets.", role: "Box design where the lid doubles as a bread plate.", result: "Reused across many cycles, simpler crew handling." },
+  { id: 14, client: "EVA Air", title: "EVA Air x Kipling Premium Economy kits", cat: "Amenity kits", cabin: "Premium economy", i: "72975e_6eb4e726aee44497a917e9f1f7247f1d~mv2.jpg", hero: "uploads/EVA_PYkits_16-9.webp", context: "Collectible kit series to reward repeat passengers.", role: "Brand partnership, graphic design, production.", result: "Two colourways inspired by Taiwanese architecture." },
+  { id: 16, client: "Multiple airlines", title: "Salt and pepper shakers", cat: "Tableware", cabin: "", cabins: ["Economy", "Premium economy", "Business"], i: "72975e_0ca56a2cfa9f4c2e8efd3fb5f5b95716~mv2.jpg", sub: "Salt and pepper shakers: a give away for passengers", context: "Small takeaway item with outsized brand recall.", role: "Shape design per airline and volume production.", result: "Series of collectible shapes, one identity per carrier." },
+  { id: 17, client: "WestJet", title: "WESTJET Business class tableware", cat: "Tableware", cabin: "Business", i: "72975e_4ca66cbe50234ef58863ec6f1da4a9f4~mv2_d_5184_3456_s_4_2.jpg", hero: "uploads/WESTJET_image16-9.webp", context: "Canadian carrier refreshing a dated economy service.", role: "Form design, colour work, production management.", result: "Blue irregular-shape set specific to the airline." },
+  { id: 18, client: "Swiss", title: "SWISS First x Zimmerli pyjama", cat: "Textiles", cabin: "First", i: "72975e_56c6332b8b2745c2b52937c198f8e006~mv2_d_4971_4961_s_4_2.jpg", hero: "uploads/SWISS_FCLPJ_image16-9.webp", context: "Sleepwear programme extended across the first cabin.", role: "Design and manufacture with Zimmerli.", result: "Consistent luxury textile line for long-haul night flights." },
+  { id: 19, client: "Edelweiss", title: "Edelweiss Business class kit", cat: "Amenity kits", cabin: "Business", i: "72975e_c865dc5766244cc78b4f762f40f3627b~mv2_d_2598_1731_s_2.jpg", context: "Business kit brief with a reuse requirement.", role: "Metal box design, sock and content sourcing.", result: "Reusable tin drawing on the airline's logo language." },
+  { id: 20, client: "Swiss", title: "SWISS x Soeder* lavatory items", cat: "Amenity kits", cabin: "Business", i: "72975e_ceef50517a0440909348816a8339bc1b~mv2_d_4194_2785_s_4_2.jpg", context: "Cabin and lounge amenities needing a credible local partner.", role: "Partner selection, formulation brief, packaging, supply.", result: "Natural products made in Zurich for onboard and lounges." },
+  { id: 21, client: "Hong Kong Airlines", title: "Hong Kong Airlines x JIA Business tableware", cat: "Tableware", cabin: "Business", i: "72975e_4effc63ad5d04064b69e5a02c1901580~mv2_d_5184_3456_s_4_2.jpg", context: "Business service anchored in a Hong Kong design vocabulary.", role: "Collection design with JIA and production oversight.", result: "Flower-motif chinaware across the business tray." },
+  { id: 22, client: "Swiss", title: "SWISS Bento box", cat: "Tableware", cabin: "Economy", i: "72975e_d980c5eaa8ac41f68497a67b41caf6a7~mv2_d_4724_3543_s_4_2.jpg", context: "Scaling the reusable box across the economy fleet.", role: "Tooling, cutlery pack integration, logistics planning.", result: "Around 100 cycles per box in service rotation." },
+  { id: 23, client: "JetBlue", title: "JetBlue x Hayward-Hopper Business class kit", cat: "Amenity kits", cabin: "Business", i: "72975e_64a80a560f9147c08aabff5b716e69bb~mv2_d_2737_2737_s_4_2.jpg", context: "US carrier wanting a local brand story at economy cost.", role: "Partnership, kit design, production.", result: "Collectible reusable pouch series." },
+  { id: 24, client: "Hong Kong Airlines", title: "Hong Kong Airlines Economy class tableware", cat: "Tableware", cabin: "Economy", i: "72975e_f96d01a67838412f9bf1230f20799fea~mv2_d_4197_2798_s_4_2.jpg", context: "Economy service equipment due for replacement.", role: "Tray, cup, casserole and bowl design; tooling and supply.", result: "Reusable set with rice-grain and flower motifs." }
+];
+
+const NEWS = [
+  { d: "Aug 2026", t: "Clip featured in OnBoard Hospitality", u: "https://issuu.com/bmipublishingltd/docs/obh-107/54", s: "OnBoard Hospitality", m: "72975e_5e83e4682f1745358a8ec37119da2c24~mv2.jpg", b: "Second wind, amenity kits as a durable lifestyle accessory: our SWISS First Class amenity kit as a prime example." },
+  { d: "Apr 2026", t: "Clip celebrates 10-year anniversary!", u: "https://www.pax-intl.com/product-news-events/events/2026/04/14/clip-celebrates-10-year-anniversary-at-wtce/", s: "PAX International", m: "72975e_eec03627803c4d08bfd96e132b209dd9~mv2.jpeg", b: "Clip marked its 10th anniversary at WTCE today, inviting select guests to its booth for a celebratory gathering." },
+  { d: "Dec 2025", t: "Clip featured in OnBoard Hospitality", u: "https://issuu.com/bmipublishingltd/docs/onboard_hospitality_december-february_2026/48", s: "OnBoard Hospitality", m: "72975e_31f4d2a0989140f28ac421008cb92e61~mv2.png", b: "Great article on our tableware collections \"Table Artistry\" by OnBoard Hospitality." },
+  { d: "Apr 2025", t: "Clip featured in PAX International.", u: "https://www.pax-intl.com/passenger-services/tableware-serveware/2025/04/02/eva-air-introduces-economy-class-tableware-with-clip/", s: "PAX International", m: "72975e_e3059636aff2477f91dbe14c86129151~mv2.jpg", b: "Review by PAX International on the new Economy Class tableware for EVA Air." },
+  { d: "May 2024", t: "Clip featured in OnBoard Hospitality", u: "https://awards.onboardhospitality.com/award/swiss-international-air-lines-2/", s: "OnBoard Hospitality", m: "72975e_050e7fe630dd4eee9845844d63d6f378~mv2.png", b: "Clip was highly recommended Best for First Class Amenities for SWISS First Class Amenity kit in partnership with Zimmerli." },
+  { d: "Mar 2024", t: "Clip featured in OnBoard Hospitality.", u: "https://www.onboardhospitality.com/new-amenity-kits-and-pyjamas-on-swiss/", s: "OnBoard Hospitality", m: "72975e_21e88fb62c254603a86aa37d4c010b2b~mv2.png", b: "Review by OnBoard Hospitality on the new SWISS First Class amenity kit and pyjama in collaboration with Zimmerli of Switzerland." },
+  { d: "Jul 2023", t: "Clip featured in OnBoard Hospitality.", u: "https://www.onboardhospitality.com/coming-to-the-table/", s: "OnBoard Hospitality", m: "72975e_bd46888b9041439c8bd056efc299581e~mv2.png", b: "Thank you OnBoard Hospitality & Stuart Forster for the feature on \"Can sustainability, functionality and style really come together?\"" },
+  { d: "Jun 2021", t: "Clip featured in Pax International.", u: "http://www.pax-intl.com/passenger-services/tableware-serveware/2021/06/15/eva-air-introduces-guzzini-premium-economy-tableware/", s: "Pax International", m: "72975e_42a8fe6751b14f008d309a5efc8caee8~mv2.jpg", b: "Review by Pax International on the new EVA Air Premium Economy tableware made in collaboration with Guzzini." },
+  { d: "Mar 2020", t: "Clip won Pax International award 2020.", u: "http://www.pax-intl.com/product-news-events/events/2020/03/30/pax-reveals-2020-readership-awards-winners/", s: "Pax International", m: "72975e_ec8f290f3249403eaeab1de3024ec738~mv2.jpg", b: "Pax reveals Clip won an award for the EVA Air x Kipling Premium Economy amenity kit." },
+  { d: "Jan 2020", t: "Clip featured in OnBoard Hospitality.", u: "https://www.onboardhospitality.com/industry-update/industry-news/", s: "OnBoard Hospitality", m: "72975e_cf325e6dfab2480a9b0372c16e88d2f1~mv2.jpg", b: "Review by OnBoard Hospitality on the new EVA Air Premium Economy amenity kit in collaboration with Kipling." },
+  { d: "Nov 2019", t: "Clip was nominated by Design Preis Schweiz.", u: "http://designpreis.ch/?pageID=731&lng=fr", s: "Design Preis Schweiz", m: "72975e_abe6b79ec87945f585e65e98102e0b83~mv2_d_5184_3456_s_4_2.jpg", b: "Our Swiss Bento Box was nominated by Design Preis Schweiz and convinced nominators by its clear and functional design." },
+  { d: "May 2019", t: "Clip featured in Pax international.", u: "https://issuu.com/globalmarketingcompany/docs/pax_spi_amenities_2019_issuu", s: "Pax international", m: "72975e_e6a3d70220404f50a12d793208001e26~mv2.jpg", b: "Review by Pax-intl.com on new tableware of the WestJet Business Class collection." },
+  { d: "Apr 2019", t: "Clip features in Julia Gash blog.", u: "https://www.juliagash.co.uk/blog/hello-hamburg", s: "Julia Gash", m: "72975e_e6487e8ba1e345e0b784e478f02929ca~mv2.jpg", b: "Thanks to Julia Gash, our visiting cityscape artist during WTCE in Hamburg. Airline visitors got to keep a bespoke pouch she designed using Bananatex material." },
+  { d: "Nov 2018", t: "Clip featured in Pax international.", u: "http://www.pax-intl.com/passenger-services/amenities-comfort/2018/11/29/victorinox-and-clip-partner-for-holiday-swiss-kits/", s: "Pax international", m: "72975e_f046d8f7181649fd864515a07ed1b18c~mv2.jpg", b: "Swiss International Air Lines and Clip are bringing a new Victorinox-branded amenity kit to Business Class this season." },
+  { d: "Aug 2018", t: "Clip featured in Apex Experience.", u: "", s: "Apex experience", m: "72975e_0cdac55dc1154bc68897987a24b7a9ba~mv2.jpg", b: "Review by Apex Experience for the launch of JetBlue's new Mint amenity kits on premium travel." },
+  { d: "Jun 2018", t: "Clip featured in On Board Hospitality.", u: "", s: "On Board Hospitality", m: "72975e_ece49d654f174ba598e9a9d0593884d6~mv2.jpg", b: "Review by onboardhospitality.com for the launch of Soeder natural cosmetics on long-haul business SWISS flights." },
+  { d: "May 2018", t: "Clip featured in Pax International.", u: "https://issuu.com/globalmarketingcompany/docs/pax_spi_amenities_2018_issuu", s: "Pax international", m: "72975e_fab57c0079e14b998e4e21db274250f6~mv2.jpg", b: "Review by Pax-intl.com for the launch of SWISS new amenity kits in Business Class." },
+  { d: "Feb 2018", t: "Clip featured in Business Traveller.", u: "https://www.businesstraveller.com/business-travel/2018/02/28/seven-new-amenity-kits-offered-premium-classes/", s: "Business Traveller", m: "72975e_f12aad074c05418caecfd3d7083e387f~mv2.jpg", b: "BusinessTraveller.com selects seven new amenity kits for passengers in premium classes, including Hong Kong Airlines Business Class." },
+  { d: "Feb 2018", t: "Clip featured in On Board Hospitality.", u: "http://www.cliponboard.com/wp-content/uploads/2017/04/180208_Victorinox2-OBH.jpg", s: "On Board Hospitality", m: "72975e_93ce6bcac7d740b5af4b3835f65f53e5~mv2.jpg", b: "Review by OnBoardHospitality.com for the launch of Swiss's new amenity kits in Business Class." },
+  { d: "Dec 2017", t: "Clip featured in BusinessTraveller.", u: "https://www.businesstraveller.com/tried-and-tested/hong-kong-airlines-a350-business-class/", s: "Business Traveller", m: "72975e_59a2552cdd3048ebb942d154b00b64e4~mv2.jpg", b: "Tried and Tested review for the launch of Hong Kong Airlines' A350 Business Class, where Clip made the new amenity kits and tableware range." },
+  { d: "Jul 2017", t: "Clip featured in Amenities Magazine.", u: "http://www.cliponboard.com/wp-content/uploads/2017/04/171221_JetBlue.jpg", s: "Amenity magazine", m: "72975e_07291ef253704cd9896f6ba75a6945be~mv2.jpg", b: "Interview of Cindy Lam for Amenities Magazine." },
+  { d: "Jun 2017", t: "CLIP featured in Pax International.", u: "http://www.cliponboard.com/wp-content/uploads/2017/04/170627_PAX_3_light.jpg", s: "Pax international", m: "72975e_42abac40a974472097aaf451131d8e80~mv2_d_1500_2262_s_2.jpg", b: "Review by Pax International about Hanro pyjamas." },
+  { d: "Nov 2016", t: "CLIP featured in Onboard Hospitality.", u: "http://www.cliponboard.com/wp-content/uploads/2017/04/161103OBH.jpg", s: "Onboard Hospitality", m: "72975e_fff27e37fd7e467aa386967119bd1eed~mv2.jpg", b: "Review by Onboard Hospitality about jetBlue kits for Mint Class." },
+  { d: "Jul 2016", t: "CLIP featured in Onboard Hospitality.", u: "http://www.cliponboard.com/wp-content/uploads/2017/03/OBH-67-Emag-1.jpg", s: "Onboard hospitality", m: "72975e_704f6b87bd3142fabd3783cc76721540~mv2_d_4627_3023_s_4_2.jpg", b: "Interview of Cindy Lam, founder of Clip, by Onboard Hospitality." },
+  { d: "Aug 2026", t: "Clip featured in OnBoard Hospitality", u: "https://issuu.com/bmipublishingltd/docs/obh-107/48", s: "OnBoard Hospitality", m: "72975e_9aa33906bcaa414ba2e6e2e8e92110c9~mv2.jpg", b: "Small is mighty, how small innovations can trigger huge change: our SWISS Bento and Edelweiss Business Class tableware at the centre stage." },
+  { d: "Apr 2026", t: "Clip featured in Aircraft Interiors International", u: "https://aii.mydigitalpublication.co.uk/march-2026/page-136", s: "Aircraft Interiors International", m: "72975e_1e5360a816904eeaa437fcc4589ba9a8~mv2.png", b: "Practicality and elegance: SWISS PY kits and EVA Air Economy tableware designed by Clip." },
+  { d: "Dec 2025", t: "Clip featured in OnBoard Hospitality", u: "https://www.onboardhospitality.com/swiss-principles-used-to-design-new-swiss-amenity-kits/", s: "OnBoard Hospitality", m: "72975e_5911d46feb07400b804186c6e1e4dd72~mv2.jpg", b: "Review by OnBoard Hospitality on the new SWISS amenity kit for Premium Economy." },
+  { d: "Apr 2025", t: "Clip featured in OnBoard Hospitality", u: "https://awards.onboardhospitality.com/award/clip-limited/", s: "OnBoard Hospitality", m: "72975e_d4d4448867254635960a43387856d0bf~mv2.png", b: "Clip won Best for Onboard Technology Hardware in the OnBoard Hospitality Awards 2025 for the noise-cancelling headphone for flydubai Business Class." },
+  { d: "May 2024", t: "Clip featured in OnBoard Hospitality", u: "https://awards.onboardhospitality.com/award/clip-limited-2/", s: "OnBoard Hospitality", m: "72975e_7081372c6d784055b719b7eb866c5edd~mv2.png", b: "Clip was highly recommended Best for Wearable Textiles for SWISS First Class pyjama in partnership with Zimmerli." },
+  { d: "Nov 2023", t: "Clip featured in OnBoard Hospitality.", u: "https://www.onboardhospitality.com/grey-kipling-amenity-kit-introduced-on-eva-air/", s: "OnBoard Hospitality", m: "72975e_fa9cc7a9f64b490baa87fb12769b3350~mv2.jpg", b: "Review on the new grey-coloured Kipling amenity kit for the Premium Economy cabin of EVA Air." },
+  { d: "Feb 2023", t: "Clip featured in Pax International.", u: "https://www.pax-intl.com/passenger-services/tableware-serveware/2023/02/14/starlux-showcases-first-class-tableware-by-clip/", s: "Pax International", m: "72975e_8341d84bff4a48b297a12ab42160d46b~mv2.png", b: "Review on the First Class service equipment for Taiwan carrier Starlux, made in collaboration with William Edwards & Robert Welch." },
+  { d: "May 2021", t: "Clip featured in OnBoard Hospitality.", u: "https://www.onboardhospitality.com/industry-update/industry-news/", s: "OnBoard Hospitality", m: "72975e_0e9e04c7e37444af9a38ede2ceca768b~mv2.jpg", b: "Review on the innovative CLICK tray for catering." },
+  { d: "Mar 2020", t: "Clip featured in Apex news.", u: "https://apex.aero/apex-experience-magazine/10.2", s: "Apex onboard news", m: "72975e_ac3c32e2d8d14da19ec7605de7de58c8~mv2.jpg", b: "Review by Apex Experiences on the Clip and Bananatex partnership to reduce plastic waste onboard." },
+  { d: "Dec 2019", t: "Clip featured in Pax international.", u: "http://www.pax-intl.com/passenger-services/tableware-serveware/2019/12/13/clip-rolls-out-new-tableware-for-edelweiss/", s: "Pax international", m: "72975e_1e06027c545d43619309a66ad27e2d33~mv2.jpg", b: "Review by Pax-intl.com on the Edelweiss Economy Class box." },
+  { d: "Nov 2019", t: "Clip won APEX/IFSA Award.", u: "https://ifsa.aero/page/2020AwardWinners", s: "IFSA Onboard News", m: "72975e_4b3d5ade7c50469d9fff78c105dcba32~mv2.jpg", b: "Clip received the Apex/Ifsa Award for Best Onboard Amenity with the JetBlue Mint kits." },
+  { d: "Apr 2019", t: "Clip featured in On Board Hospitality magazine.", u: "https://issuu.com/bmipublishingltd/docs/obh-78-emag", s: "On Board Hospitality", m: "72975e_d521652e3e0649699499c61eb1c39feb~mv2.jpg", b: "Review on the launch of WestJet's new Business Class collection, inspired by Canadian lakes and mountains." },
+  { d: "Dec 2018", t: "Clip featured in Pax international.", u: "http://www.pax-intl.com/passenger-services/amenities-comfort/2018/12/19/edelweiss-and-clip-launch-new-kit-for-business-class/", s: "Pax international", m: "72975e_df7937607e254e3a993b56dc2bd871ea~mv2.jpg", b: "Review on the launch of Edelweiss's new kits for Business Class." },
+  { d: "Nov 2018", t: "Clip featured in Pax international.", u: "http://www.pax-intl.com/passenger-services/amenities-comfort/2018/11/02/clip-designs-exclusive-pajamas-for-swiss/", s: "Pax international", m: "72975e_b58b8ddeec8445238ac0b28badb83e14~mv2.jpg", b: "Review on Clip's Swiss International Air Lines pyjamas." },
+  { d: "Jun 2018", t: "Clip featured in Amenities Magazine.", u: "https://issuu.com/travelplusmedia/docs/201806-001_magazine_amentiies_jun20", s: "Amenities magazine", m: "72975e_fd50125c3b20481fb57d30d759098b7f~mv2.jpg", b: "Review on the launch of JetBlue's new Mint amenity kits on premium travel." },
+  { d: "May 2018", t: "Clip featured in Pax International.", u: "https://issuu.com/globalmarketingcompany/docs/pax_spi_amenities_2018_issuu", s: "Pax international", m: "72975e_6a0efdfa259c4969afed9f2c38242d00~mv2.jpg", b: "Review on the launch of Hong Kong Airlines' new amenity kits in Business Class." },
+  { d: "May 2018", t: "Clip featured in Pax International.", u: "https://issuu.com/globalmarketingcompany/docs/pax_spi_amenities_2018_issuu", s: "Pax international", m: "72975e_35263773a38041e5ac6d41f7e46a926f~mv2.jpg", b: "Review about Clip's process and creativity." },
+  { d: "Feb 2018", t: "Clip featured in Business Traveller.", u: "https://www.businesstraveller.com/business-travel/2018/02/28/seven-new-amenity-kits-offered-premium-classes/", s: "Business Traveller", m: "72975e_5e2adc4baa5d456f9eca5cdee44774ea~mv2.jpg", b: "BusinessTraveller.com selects seven new amenity kits for passengers in premium classes, including Swiss Business Class." },
+  { d: "Feb 2018", t: "Clip featured in Travel Plus Amenities.", u: "https://travelplusamenities.com/2613", s: "Travel Plus amenities", m: "72975e_c7d0a306e66a49dc8f1c59b076bc4f76~mv2.jpg", b: "Review on the launch of Swiss's new amenity kits in Business Class." },
+  { d: "Dec 2017", t: "Clip featured in Onboard Hospitality.", u: "http://www.cliponboard.com/wp-content/uploads/2017/04/171221_Guzzini2.jpg", s: "On Board Hospitality", m: "72975e_4387632716754f8b88d53dada7c88187~mv2.jpg", b: "Clip aims to upgrade Economy style — on the partnership between Clip and the Italian brand Guzzini." },
+  { d: "Jun 2017", t: "CLIP featured in Pax International.", u: "", s: "Pax international", m: "72975e_d2004036f87345d0a53d3ea37a529e1f~mv2.jpg", b: "Review about Ricebowl Republic kits for Hong Kong Airlines." },
+  { d: "2017", t: "Winner Onboard Hospitality award 2017!", u: "", s: "Onboard Hospitality", m: "72975e_284c39b38e5544c49fb4560f2378d807~mv2.jpg", b: "Best for Onboard Service Equipment (Passengers). A sleek, simple, rotable and hygienic design, easy for the crew to remove and reload." },
+  { d: "Sep 2016", t: "CLIP featured in Pax International.", u: "http://www.cliponboard.com/wp-content/uploads/2017/03/160912PAX.jpg", s: "Pax international", m: "72975e_56e254225e9d4172b83bf0b2cbf305f7~mv2_d_2463_3516_s_4_2.jpg", b: "Review about the Bento Box made for Swiss." },
+  { d: "Apr 2026", t: "Clip 10th anniversary: marking the occasion", u: "https://issuu.com/bmipublishingltd/docs/onboard_hospitality_106_2026/42", s: "OnBoard Hospitality", m: "72975e_33632355f49940778cb556c6f2f1b0c3~mv2.png", b: "Celebrating 10 years of Clip with friends and partners at WTCE." },
+  { d: "Mar 2026", t: "Clip featured in OnBoard Hospitality", u: "https://issuu.com/bmipublishingltd/docs/onboard_hospitality_105_2026/97", s: "OnBoard Hospitality", m: "72975e_6f2dc850de6f4574a4709eeacbee56d5~mv2.png", b: "Nature by design — how nature influences design: our EVA Air tableware." },
+  { d: "May 2025", t: "Clip featured in Inflight Magazine.", u: "https://acrobat.adobe.com/id/urn:aaid:sc:EU:346c447f-914c-4e94-aae9-6f6481f316a9", s: "Inflight Magazine", m: "72975e_a0b1fab524014026a4a405f1864df918~mv2.png", b: "Article from Inflight Magazine on amenities." },
+  { d: "Apr 2025", t: "Clip featured in OnBoard Hospitality", u: "https://awards.onboardhospitality.com/award/starlux-airlines/", s: "OnBoard Hospitality", m: "72975e_44a3a283587341f6987f2f0c234eb38b~mv2.png", b: "Clip was highly recommended Best for First Class Amenities for the Starlux departure kit in partnership with Aesop." },
+  { d: "May 2024", t: "Clip featured in OnBoard Hospitality.", u: "https://issuu.com/bmipublishingltd/docs/obh-98", s: "OnBoard Hospitality", m: "72975e_c7047374e85f4851af3a3b68e0294c34~mv2.png", b: "Great piece on Beond and chinaware — \"Setting Standards\" by OnBoard Hospitality." },
+  { d: "Sep 2023", t: "Beond selects Clip for design of luxury inflight tableware", u: "https://flybeond.com/latestnews", s: "Beond", m: "72975e_9baac9701de44e828c2f9cefb9ba81d3~mv2.png", b: "Beond and Clip announced that Clip will select and supply luxury inflight tableware for Beond, the world's premium leisure airline." },
+  { d: "Jan 2022", t: "Clip featured in OnBoard Hospitality.", u: "https://issuu.com/bmipublishingltd/docs/obh-88", s: "OnBoard Hospitality", m: "72975e_fa4dee5d031c456e83eaf839227bae9b~mv2.jpg", b: "Clip won Best Onboard Service Equipment – Passenger in the Onboard Hospitality Awards 2021 for its Guzzini EVA Air tableware." },
+  { d: "Apr 2021", t: "Clip unveils CLICK tray.", u: "http://www.pax-intl.com/passenger-services/tableware-serveware/2021/05/18/clip-unveils-click-tray/", s: "Pax International", m: "72975e_3a958592958741b0820b33c3499674cf~mv2.jpg", b: "Pax reveals Clip's innovative CLICK tray." },
+  { d: "Mar 2020", t: "Clip featured in OnBoard Hospitality.", u: "https://www.onboardhospitality.com/industry-update/industry-news/", s: "OnBoard Hospitality", m: "72975e_c133988fe39f4debb59c156dbd83e0a6~mv2.jpg", b: "Review on the new Edelweiss Business Class tableware collection." },
+  { d: "Nov 2019", t: "Clip featured in About Travel.", u: "https://abouttravel.ch/industrie-des-voyages/un-cafe-edelweiss-a-laeroport-de-zurich/", s: "About Travel", m: "72975e_8c7f961c06944e54ba6070e59cbaff89~mv2.jpg", b: "Review on the Edelweiss Economy Class box and the future Business Class collection." },
+  { d: "Sep 2019", t: "Clip won APEX/IFSA Award.", u: "https://ifsa.aero/page/2020AwardWinners", s: "APEX / IFSA Award", m: "72975e_b8fa4e7029ea465db19aef1bf81778c2~mv2.jpg", b: "Clip received the Apex/Ifsa Award for Best Onboard Amenity with the JetBlue Mint kits." },
+  { d: "Apr 2019", t: "Clip featured in WestJet video.", u: "https://www.linkedin.com/feed/update/urn:li:activity:6521016957204983808/", s: "WestJet & Clip", m: "72975e_cc36e688df434040819e9340bae62c82~mv2.jpg", b: "Louis Saint-Cyr, VP Guest Experience of WestJet, and Cindy Lam, founder of Clip, at WTCE Hamburg 2019 commenting on the new Business Class equipment." },
+  { d: "Nov 2018", t: "Clip featured in On Board Hospitality", u: "", s: "On Board Hospitality", m: "72975e_bad59f01f4d741eaaf3dec4d176284cc~mv2.jpg", b: "Review on the Hong Kong Airlines new \"faan-tastic\" amenity kits in Business Class." },
+  { d: "Sep 2018", t: "Clip featured in PAX International.", u: "", s: "Pax international", m: "72975e_cd5014d5b1b24f15b9d8b85d3e5f4290~mv2.jpg", b: "Review on the launch of Soeder natural cosmetics on long-haul business SWISS flights." },
+  { d: "Jun 2018", t: "Clip featured in Amenities Magazine.", u: "https://issuu.com/travelplusmedia/docs/201806-001_magazine_amentiies_jun20", s: "Amenities magazine", m: "72975e_422b4b99a9ca4a88818c538f342f6ed3~mv2.jpg", b: "Review about Clip's Seawool blanket." },
+  { d: "May 2018", t: "Clip featured in Pax International.", u: "https://issuu.com/globalmarketingcompany/docs/pax_spi_amenities_2018_issuu", s: "Pax international", m: "72975e_043d194d43694dc2b49f394ff2c6040e~mv2.jpg", b: "Review on the launch of new sustainable sleepwear in First Class." },
+  { d: "Mar 2018", t: "Clip featured in Pax International.", u: "http://www.pax-intl.com/passenger-services/amenities-comfort/2018/03/01/clip-pairs-with-hong-kong-airlines-for-new-kits/", s: "Pax international", m: "72975e_7f156fbe205f4ba9811ac8a80d2a7f43~mv2.jpg", b: "Review on the launch of Hong Kong Airlines' new amenity kits in Business Class." },
+  { d: "Feb 2018", t: "Clip featured in Will Run For Miles.", u: "https://willrunformiles.boardingarea.com/jetblues-latest-mint-amenity-kit-revealed-beauty/", s: "Will Run For Miles", m: "72975e_662d91d9bd634699b4deb636f37881c0~mv2.jpg", b: "Review on the launch of JetBlue's new Mint amenity kits on premium travel." },
+  { d: "Dec 2017", t: "Clip featured in TheDesignAir.", u: "https://thedesignair.net/2017/12/20/hong-kong-airlines-launches-new-tableware-range/", s: "The Design Air", m: "72975e_a8b54bfa16d24b62a4e996763c52f734~mv2.jpg", b: "Review on the launch of Hong Kong Airlines' new tableware range in A350 Business Class." },
+  { d: "Dec 2017", t: "Clip featured in Amenities.", u: "http://www.cliponboard.com/wp-content/uploads/2017/04/171221_JetBlue.jpg", s: "Amenity magazine", m: "72975e_f134687fca7a424aba3e534e7e26d37c~mv2.jpg", b: "Review about jetBlue's new Christmas kits." },
+  { d: "Jun 2017", t: "CLIP featured in Pax International.", u: "http://www.cliponboard.com/wp-content/uploads/2017/04/170627_PAX_1_light.jpg", s: "Pax international", m: "72975e_d18a868a2f054883924249b731b0e002~mv2_d_1900_1642_s_2.jpg", b: "Review about jetBlue Mint Class kits." },
+  { d: "Feb 2017", t: "CLIP featured in Amenities magazine.", u: "http://www.cliponboard.com/wp-content/uploads/2017/05/170503-AMENITIES.jpg", s: "Amenities magazine", m: "72975e_d6ad9384e72c4eb08bc11e1b4f29b51c~mv2_d_2000_1411_s_2.jpg", b: "Review concerning the new Hong Kong Airlines kits made with Ricebowl Republic." },
+  { d: "Jul 2016", t: "CLIP featured in Pax International.", u: "http://www.cliponboard.com/wp-content/uploads/2017/03/160822PAXlight.jpg", s: "Pax international", m: "72975e_506a6f57369c4d69bdd9eea5dbc4dea4~mv2_d_1719_2510_s_2.jpg", b: "Review about the Bento Box made for Swiss." }
+];
+
+const AIRLINE_LOGOS = [
+  { name: "Swiss", src: "uploads/LOGOS COMPANIES_SWISS.webp" },
+  { name: "Edelweiss", src: "uploads/LOGOS COMPANIES_EDELWEISS.webp" },
+  { name: "EVA Air", src: "uploads/LOGOS COMPANIES_EVA AIR.webp" },
+  { name: "flydubai", src: "uploads/LOGOS COMPANIES_FLYDUBAI.webp" },
+  { name: "Starlux", src: "uploads/LOGOS COMPANIES_STARLUX.webp" },
+  { name: "Brussels Airlines", src: "uploads/LOGOS COMPANIES_BRUSSELS AIRLINES.webp" },
+  { name: "JetBlue", src: "uploads/LOGOS COMPANIES_JETBLUE.webp" },
+  { name: "WestJet", src: "uploads/LOGOS COMPANIES_WESTJET.webp" },
+  { name: "Hong Kong Airlines", src: "uploads/LOGOS COMPANIES_HONG KONG AIRLINES.webp" },
+  { name: "Beond", src: "uploads/LOGOS COMPANIES_BEOND.webp" },
+  { name: "Vivajet", src: "uploads/LOGOS COMPANIES_VIVAJET.webp", h: 28 },
+  { name: "China Airlines", src: "uploads/LOGOS COMPANIES_CHINA AIRLINES.webp", h: 37 }
+];
+
+const CATS = ["All", "Amenity kits", "Tableware", "Textiles", "Headphones"];
+const CABINS = ["All", "First", "Business", "Premium economy", "Economy"];
+
+class Component extends DCLogic {
+  state = { page: "work", cat: "All", cabin: "All", open: null, dark: false, menuOpen: false, headerHidden: false };
+  lastScrollY = 0;
+  galleryRef = (el) => {
+    if (!el || el._lb) return;
+    el._lb = true;
+    el.querySelectorAll("img").forEach(i => { i.style.cursor = "pointer"; });
+    el.addEventListener("click", (e) => {
+      const src = e.target.closest("img");
+      if (!src || !el.contains(src) || document.getElementById("clip-lightbox")) return;
+      const dur = 360, ease = "cubic-bezier(.2,.8,.2,1)";
+      const nw = src.naturalWidth, nh = src.naturalHeight;
+      if (!nw || !nh) return;
+      const pad = Math.min(64, innerWidth * 0.05), s = Math.min((innerWidth - pad * 2) / nw, (innerHeight - pad * 2) / nh);
+      const tw = nw * s, th = nh * s, tl = (innerWidth - tw) / 2, tt = (innerHeight - th) / 2;
+      const pos = (getComputedStyle(src).objectPosition || "50% 50%").split(" ").map(v => v.endsWith("%") ? parseFloat(v) / 100 : 0.5);
+      const from = () => {
+        const r = src.getBoundingClientRect(), k = Math.max(r.width / tw, r.height / th);
+        const ox = (tw * k - r.width) * pos[0], oy = (th * k - r.height) * (pos[1] ?? 0.5);
+        return {
+          transform: "translate(" + (r.left - tl - ox) + "px," + (r.top - tt - oy) + "px) scale(" + k + ")",
+          clip: "inset(" + (oy / k) + "px " + ((tw * k - r.width - ox) / k) + "px " + ((th * k - r.height - oy) / k) + "px " + (ox / k) + "px)"
+        };
+      };
+      const ov = document.createElement("div");
+      ov.id = "clip-lightbox";
+      ov.style.cssText = "position:fixed;inset:0;z-index:1000;background:rgb(18,16,14);opacity:0;transition:opacity " + dur + "ms " + ease + ";";
+      const im = document.createElement("img");
+      im.src = src.currentSrc || src.src;
+      const f = from();
+      im.style.cssText = "position:fixed;z-index:1001;left:" + tl + "px;top:" + tt + "px;width:" + tw + "px;height:" + th + "px;display:block;transform-origin:0 0;will-change:transform,clip-path;transform:" + f.transform + ";clip-path:" + f.clip + ";transition:transform " + dur + "ms " + ease + ",clip-path " + dur + "ms " + ease + ";";
+      document.body.appendChild(ov); document.body.appendChild(im);
+      src.style.visibility = "hidden";
+      im.getBoundingClientRect();
+      requestAnimationFrame(() => { ov.style.opacity = "0.92"; im.style.transform = "none"; im.style.clipPath = "inset(0px 0px 0px 0px)"; });
+      const close = () => {
+        if (ov._closing) return; ov._closing = true;
+        document.removeEventListener("keydown", onKey);
+        const f2 = from();
+        ov.style.opacity = "0"; im.style.transform = f2.transform; im.style.clipPath = f2.clip;
+        setTimeout(() => { src.style.visibility = ""; ov.remove(); im.remove(); }, dur);
+      };
+      const onKey = (k) => { if (k.key === "Escape") close(); };
+      ov.addEventListener("click", close); im.addEventListener("click", close);
+      document.addEventListener("keydown", onKey);
+    });
+  };
+
+  worldMapRef = (el) => {
+    if (!el || el.dataset.drawn || !window.d3 || !window.topojson) return;
+    el.dataset.drawn = "1";
+    const W = 1000, H = 440;
+    const svg = window.d3.select(el).append("svg").attr("viewBox", `0 0 ${W} ${H}`).style("position", "absolute").style("inset", "0").style("width", "100%").style("height", "100%").style("cursor", "grab");
+    const g = svg.append("g");
+    const bounds = { type: "Polygon", coordinates: [[[-10, 18], [-10, 56], [128, 56], [128, 18], [-10, 18]]] };
+    const projection = window.d3.geoMercator().fitExtent([[40, 40], [W - 40, H - 40]], bounds);
+    const p1c = projection([6.6167, 46.5333]), p2c = projection([114.1289, 22.2807]);
+    const midX = (p1c[0] + p2c[0]) / 2, midY = (p1c[1] + p2c[1]) / 2;
+    const [ctx, cty] = projection.translate();
+    projection.translate([ctx + (W / 2 - midX), cty + (H / 2 - midY)]);
+    const path = window.d3.geoPath(projection);
+    const ink = getComputedStyle(document.documentElement).getPropertyValue("--border") || "#ddd";
+    const repositionFns = [];
+    const zoom = window.d3.zoom().scaleExtent([1, 8]).on("zoom", (ev) => {
+      g.attr("transform", ev.transform);
+      g.selectAll("circle").attr("r", 6 / ev.transform.k).attr("stroke-width", 2 / ev.transform.k);
+      repositionFns.forEach(fn => fn(ev.transform));
+    });
+    svg.call(zoom).on("dblclick.zoom", null).on("wheel.zoom", null);
+    svg.on("mousedown.cursor", () => svg.style("cursor", "grabbing")).on("mouseup.cursor mouseleave.cursor", () => svg.style("cursor", "grab"));
+    this._svg = svg; this._zoom = zoom;
+    const pin = (lon, lat, title, address, expandedW, expandedH) => {
+      const [ox, oy] = projection([lon, lat]);
+      g.append("circle").attr("cx", ox).attr("cy", oy).attr("r", 6).attr("fill", "var(--ink)").attr("stroke", "var(--surface-alt)").attr("stroke-width", 2);
+      const collapsedW = title.length * 7.4 + 38, collapsedH = 32;
+      const wrap = document.createElement("div");
+      wrap.style.cssText = "position:absolute;transform:translate(14px,-50%);z-index:15;cursor:pointer;";
+      const bubble = document.createElement("div");
+      bubble.style.cssText = `background:var(--ink);color:var(--surface-alt);border-radius:16px;overflow:hidden;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;padding:0 16px;font-family:'Poppins',Helvetica,Arial,sans-serif;width:${collapsedW}px;height:${collapsedH}px;transition:width .3s cubic-bezier(.22,1,.36,1),height .3s cubic-bezier(.22,1,.36,1);`;
+      const titleEl = document.createElement("div");
+      titleEl.textContent = title.toUpperCase();
+      titleEl.style.cssText = "font-size:11px;letter-spacing:0.07em;font-weight:600;white-space:nowrap;flex:0 0 auto;";
+      const addrEl = document.createElement("div");
+      addrEl.textContent = address;
+      addrEl.style.cssText = "font-size:11.5px;line-height:1.4;margin-top:0;max-height:0;opacity:0;transform:translateY(6px);overflow:hidden;transition:opacity .2s ease-out,transform .2s ease-out,max-height .2s ease-out,margin-top .2s ease-out;";
+      bubble.appendChild(titleEl); bubble.appendChild(addrEl); wrap.appendChild(bubble); el.appendChild(wrap);
+      wrap.addEventListener("mouseenter", () => {
+        bubble.style.transitionDelay = "0s";
+        bubble.style.width = expandedW + "px"; bubble.style.height = expandedH + "px";
+        addrEl.style.transitionDelay = ".1s";
+        addrEl.style.opacity = "1"; addrEl.style.transform = "translateY(0)"; addrEl.style.maxHeight = "60px"; addrEl.style.marginTop = "5px";
+      });
+      wrap.addEventListener("mouseleave", () => {
+        addrEl.style.transitionDelay = "0s";
+        addrEl.style.opacity = "0"; addrEl.style.transform = "translateY(6px)"; addrEl.style.maxHeight = "0"; addrEl.style.marginTop = "0";
+        bubble.style.transitionDelay = ".12s";
+        bubble.style.width = collapsedW + "px"; bubble.style.height = collapsedH + "px";
+      });
+      const reposition = (transform) => {
+        const [x, y] = transform ? transform.apply([ox, oy]) : [ox, oy];
+        wrap.style.left = (x / W * 100) + "%"; wrap.style.top = (y / H * 100) + "%";
+      };
+      reposition(null);
+      return reposition;
+    };
+    repositionFns.push(pin(6.6167, 46.5333, "Design office", "Rue de Sebeillon 1, 1004 Lausanne, Switzerland", 230, 76));
+    repositionFns.push(pin(114.1289, 22.2807, "HQ", "6/F Cheung Hing Industrial Building, 12P Smithfield Road, Kennedy Town, Hong Kong", 250, 90));
+    fetch("https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json").then(r => r.json()).then(topo => {
+      const countries = window.topojson.feature(topo, topo.objects.countries);
+      g.insert("path", ":first-child").attr("d", path({ type: "Sphere" })).attr("fill", "var(--surface-alt)");
+      g.selectAll("path.country").data(countries.features).enter().insert("path", "circle").attr("class", "country").attr("d", path).attr("fill", "var(--bg)").attr("stroke", ink.trim()).attr("stroke-width", 0.6);
+    });
+  };
+  zoomIn = () => { if (this._svg && this._zoom) this._svg.transition().duration(200).call(this._zoom.scaleBy, 1.5); };
+  zoomOut = () => { if (this._svg && this._zoom) this._svg.transition().duration(200).call(this._zoom.scaleBy, 1 / 1.5); };
+
+  componentDidMount() {
+    this.onScroll = () => {
+      const y = window.scrollY;
+      if (window.innerWidth > 700) {
+        const brand = document.getElementById("header-brand");
+        const past = brand ? brand.getBoundingClientRect().bottom < 60 : y > 250;
+        if (past !== !!this.state.barLogo) this.setState({ barLogo: past });
+      }
+      if (this.state.menuOpen) { this.lastScrollY = y; return; }
+      if (y <= 80) { if (this.state.headerHidden) this.setState({ headerHidden: false }); this.lastScrollY = y; return; }
+      const delta = y - this.lastScrollY;
+      if (delta < 0) { if (this.state.headerHidden) this.setState({ headerHidden: false }); }
+      else if (delta > 10) { if (!this.state.headerHidden) this.setState({ headerHidden: true }); }
+      this.lastScrollY = y;
+    };
+    window.addEventListener("scroll", this.onScroll, { passive: true });
+  }
+
+  componentWillUnmount() {
+    if (this.onScroll) window.removeEventListener("scroll", this.onScroll);
+  }
+
+  logoSrc() { return this.state.dark ? "uploads/LOGO_WHITE-RED.webp" : "https://static.wixstatic.com/media/72975e_5b6b7546f60045c4953f87733507a3c5~mv2.png/v1/fill/w_369,h_228,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/LOGO_CLIP_edited.png"; }
+
+  themeVars() {
+    return this.state.dark ? {
+      "--bg": "#14130f", "--ink": "#efece2", "--body": "#c9c4b4", "--muted": "#9a9382", "--muted-2": "#7d7666",
+      "--border": "#37352c", "--surface": "#1c1a15", "--surface-alt": "#1c1a15", "--hover-surface": "#211f18",
+      "--form-bg": "#1c1a15", "--ph-a": "#211f18", "--ph-b": "#2a281f", "--selection": "#37352c",
+      "--accent": "#c9b98a", "--header-bg": "rgba(20,19,15,0.94)", "--logo-filter": "invert(1)"
+    } : {
+      "--bg": "#ffffff", "--ink": "#14130f", "--body": "#3f3c33", "--muted": "#6f6a5c", "--muted-2": "#8a8474",
+      "--border": "#ddd9cd", "--surface": "#f2f0e8", "--surface-alt": "#ffffff", "--hover-surface": "#f7f5ee",
+      "--form-bg": "#f8f7f2", "--ph-a": "#efece1", "--ph-b": "#e4e0d1", "--selection": "#e8e2cf",
+      "--accent": "#6b5f3e", "--header-bg": "rgba(255,255,255,0.94)", "--logo-filter": "none"
+    };
+  }
+
+  chip(active) {
+    return "font-family:'Poppins', Helvetica, Arial, sans-serif;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;padding:7px 11px;cursor:pointer;border:1px solid " +
+      (active ? "var(--ink)" : "var(--border)") + ";background:" + (active ? "var(--ink)" : "var(--surface-alt)") + ";color:" + (active ? "var(--surface-alt)" : "var(--ink)");
+  }
+
+  navStyle(page) {
+    const on = this.state.page === page;
+    return "color:var(--ink);border-bottom:1px solid " + (on ? "var(--ink)" : "transparent") + ";padding-bottom:3px;font-weight:" + (on ? "600" : "400");
+  }
+
+  go(page) {
+    return (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ page: page, open: null }); window.scrollTo(0, 0); };
+  }
+
+  goMobile(page) {
+    return (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ page: page, open: null, menuOpen: false }); window.scrollTo(0, 0); };
+  }
+
+  renderVals() {
+    const barLogoStyle = this.state.barLogo ? "opacity:1;pointer-events:auto;transform:none;" : "opacity:0;pointer-events:none;transform:translateY(-4px);";
+    const s = this.state;
+    const items = PROJECTS.filter(p => (s.cat === "All" || p.cat === s.cat) && (s.cabin === "All" || p.cabin === s.cabin || (p.cabins || []).includes(s.cabin)));
+    const detail = PROJECTS.find(p => p.id === s.open);
+    const idx = detail ? PROJECTS.findIndex(p => p.id === s.open) : -1;
+    const prevP = idx >= 0 ? PROJECTS[(idx - 1 + PROJECTS.length) % PROJECTS.length] : null;
+    const nextP = idx >= 0 ? PROJECTS[(idx + 1) % PROJECTS.length] : null;
+    return {
+      worldMapRef: this.worldMapRef, galleryRef: this.galleryRef, zoomIn: this.zoomIn, zoomOut: this.zoomOut,
+      isWork: s.page === "work", isAbout: s.page === "about", isNews: s.page === "news", isContact: s.page === "contact", isProject: s.page === "project",
+      goWork: this.go("work"), goAbout: this.go("about"), goNews: this.go("news"), goContact: this.go("contact"),
+      goWorkMobile: this.goMobile("work"), goAboutMobile: this.goMobile("about"), goNewsMobile: this.goMobile("news"), goContactMobile: this.goMobile("contact"),
+      menuOpen: s.menuOpen,
+      menuIcon: s.menuOpen ? "✕" : "☰",
+      toggleMenu: () => this.setState({ menuOpen: !s.menuOpen, headerHidden: false }),
+      barLogoStyle,
+      headerBarTransform: s.headerHidden ? "translateY(-100%)" : "translateY(0)",
+      navWork: this.navStyle("work"), navAbout: this.navStyle("about"), navNews: this.navStyle("news"), navContact: this.navStyle("contact"),
+      cats: CATS.map(c => ({ label: c, style: this.chip(s.cat === c), pick: () => this.setState({ cat: c }) })),
+      cabins: CABINS.map(c => ({ label: c, style: this.chip(s.cabin === c), pick: () => this.setState({ cabin: c }) })),
+      countLabel: items.length + " / " + PROJECTS.length + " programmes",
+      items: items.map((p, n) => ({
+        title: p.title, client: p.client, fullTitle: p.title, meta: p.client + " - " + p.cat + (p.cabin ? " - " + p.cabin : ""),
+        num: String(n + 1).padStart(2, "0"), open: () => { this.setState({ page: "project", open: p.id }); window.scrollTo(0, 0); },
+        setRef: (el) => { if (el && el.src !== img(p.i)) el.src = img(p.i); }
+      })),
+      detail: detail ? { id: detail.id, slotBase: "proj-" + detail.id, title: detail.title, client: detail.client === "Swiss" ? "SWISS" : detail.client, year: detail.year || "2025", subtitle: subtitleOf(detail), isCAL: detail.id === 26, isPlaceholder: detail.id !== 26, ["isP" + detail.id]: true, isSwissPE: detail.id === 1, isNotSwissPE: detail.id !== 1 && detail.id !== 2 && detail.id !== 3 && detail.id !== 4, isPlaceholderGallery: detail.id !== 26 && detail.id !== 1 && detail.id !== 2 && detail.id !== 3 && detail.id !== 4 && detail.id !== 5 && detail.id !== 6 && detail.id !== 7 && detail.id !== 8 && detail.id !== 9 && detail.id !== 10 && detail.id !== 11 && detail.id !== 12 && detail.id !== 13 && detail.id !== 14 && detail.id !== 15 && detail.id !== 16 && detail.id !== 17 && detail.id !== 18, meta: detail.cat + (detail.cabin ? " · " + detail.cabin + " class" : ""), context: detail.context, role: detail.role, result: detail.result,
+        setRef: (el) => { if (!el) return; const h = img(detail.hero || detail.i); if (el.src !== h) el.src = h; el.style.transform = detail.heroZoom ? "scale(" + detail.heroZoom + ")" : ""; el.style.transformOrigin = "50% 0"; },
+        backToWork: (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ page: "work", open: null }); window.scrollTo(0, 0); },
+        prevTitle: prevP ? prevP.title : "", nextTitle: nextP ? nextP.title : "",
+        goPrev: (e) => { if (e && e.preventDefault) e.preventDefault(); if (prevP) { this.setState({ open: prevP.id }); window.scrollTo(0, 0); } },
+        goNext: (e) => { if (e && e.preventDefault) e.preventDefault(); if (nextP) { this.setState({ open: nextP.id }); window.scrollTo(0, 0); } } } : null,
+      setFilmstripRef: (el) => { this.filmstripEl = el; },
+      scrollFilmLeft: () => { if (this.filmstripEl) this.filmstripEl.scrollBy({ left: -320, behavior: "smooth" }); },
+      scrollFilmRight: () => { if (this.filmstripEl) this.filmstripEl.scrollBy({ left: 320, behavior: "smooth" }); },
+      rootVars: Object.entries(this.themeVars()).map(([k, v]) => k + ":" + v).join(";") + ";",
+      logoRef: (el) => { const src = this.logoSrc(); if (el && el.src !== src && !el.src.endsWith(src)) el.src = src; },
+      darkToggleLabel: s.dark ? "☀ Light" : "☾ Dark",
+      darkToggleIconOnly: s.dark ? "☀" : "☾",
+      darkToggleStyle: "font-family:'Poppins',Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:0.03em;border:1px solid var(--border);border-radius:999px;padding:7px 14px;background:none;color:var(--ink);cursor:pointer;",
+      toggleDark: () => this.setState({ dark: !s.dark }),
+      noSubmit: (e) => e.preventDefault(),
+      scrollGrid: (e) => { if (e && e.preventDefault) e.preventDefault(); const el = document.getElementById("work-grid"); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 56, behavior: "smooth" }); },
+      clients: ["Swiss", "Edelweiss", "EVA Air", "flydubai", "Starlux", "Brussels Airlines", "JetBlue", "WestJet", "Hong Kong Airlines", "Beond", "Vivajet"],
+      marqueeClients: AIRLINE_LOGOS.concat(AIRLINE_LOGOS).map(c => ({ ...c, hpx: (c.h || 34) + "px", setRef: (el) => { if (el && el.src !== c.src && !el.src.endsWith(c.src)) el.src = c.src; } })),
+      awards: [
+        { date: "April 2026", title: "PAX International award", body: "Clip won the PAX International award Europe for its First Class amenity kit for SWISS in collaboration with Zimmerli.", i: "72975e_f3adfb1fbc654a3a9a7c5f680b9c2757~mv2.jpg" },
+        { date: "May 2024", title: "Onboard Hospitality award", body: "Clip won the highly commended awards for its First Class amenity kit for SWISS First in collaboration with Zimmerli.", i: "72975e_0361be7952354e7a924d7d9a65097036~mv2.png" },
+        { date: "September 2021", title: "Onboard Hospitality award", body: "Clip won the Onboard Hospitality One to Watch Award for its patented CLICK TRAY, a compact box that unfolds into a tray." },
+        { date: "March 2020", title: "Pax International award", body: "Clip won the Pax International Award for its Premium Economy amenity kit made for EVA AIR in partnership with the Belgian brand KIPLING.", i: "72975e_6eb4e726aee44497a917e9f1f7247f1d~mv2.jpg" },
+        { date: "April 2018", title: "Onboard Hospitality finalist", body: "Clip was finalist for the Onboard Hospitality award for its Business Class amenity kit made for HONG KONG AIRLINE in partnership with RICEBOWL REPUBLIC." },
+        { date: "April 2017", title: "Onboard Hospitality award", body: "Clip won the Onboard Hospitality Award for its Bento Box made for SWISS. A reusable solution to serve food on medium-haul flights.", i: "72975e_e9f64138ab0041dfa00781a13d5666ee~mv2.jpeg" },
+        { date: "April 2025", title: "Onboard Hospitality award", body: "Starlux First Class amenity kit with Aesop was highly commended by OnBoard Hospitality.", i: "72975e_a82396f49e504ac685663d2e29bbe952~mv2.jpg" },
+        { date: "May 2024", title: "Onboard Hospitality award", body: "Clip won the highly commended awards for its First Class pyjamas for SWISS First in collaboration with Zimmerli.", i: "72975e_f3adfb1fbc654a3a9a7c5f680b9c2757~mv2.jpg" },
+        { date: "September 2021", title: "Onboard Hospitality award", body: "Clip won the Onboard Hospitality Highly commended Award for its Premium Economy amenity kit made for EVA AIR in partnership with the Belgian brand KIPLING.", i: "72975e_6eb4e726aee44497a917e9f1f7247f1d~mv2.jpg" },
+        { date: "November 2019", title: "Apex & IFSA award", body: "Clip won the Apex & IFSA Award for its JETBLUE Mint Class amenity kit made in partnership with the N-Y City luxury brand HAYWARD & HOPPER.", i: "72975e_64a80a560f9147c08aabff5b716e69bb~mv2_d_2737_2737_s_4_2.jpg" },
+        { date: "April 2018", title: "Onboard Hospitality finalist", body: "Clip was finalist for the Onboard Hospitality award for its Business Class tableware made for HONG KONG AIRLINE in partnership with JIA.", i: "72975e_4effc63ad5d04064b69e5a02c1901580~mv2_d_5184_3456_s_4_2.jpg" },
+        { date: "2017", title: "Travel Plus finalist", body: "Clip was finalist for the Travel Plus award for its JETBLUE Mint Class amenity kit in partnership with the luxury brand HAYWARD & HOPPER.", i: "72975e_64a80a560f9147c08aabff5b716e69bb~mv2_d_2737_2737_s_4_2.jpg" },
+        { date: "April 2025", title: "Onboard Hospitality award", body: "Clip won the Onboard Hospitality award for the best Onboard Technology with Flydubai presenting its innovation modular noise cancelling headphones.", i: "72975e_8b5454adfebe4dd39ed3f5baf0b38762~mv2.jpg" },
+        { date: "June 2023", title: "Onboard Hospitality award", body: "Clip was finalist for the Onboard Hospitality award presenting its new tableware collection designed in partnership with William Edwards & Robert Welch for the STARLUX First Class.", i: "72975e_0c6a6e4d348b4fd1b18b976509f8b221~mv2.png" },
+        { date: "September 2021", title: "Onboard Hospitality award", body: "Clip won the Onboard Hospitality Award for its Premium Economy tableware made for EVA AIR in partnership with the famous Italian brand GUZZINI.", i: "72975e_250fc649a80646cb878220ec14fd2019~mv2.jpg" },
+        { date: "April 2019", title: "Onboard Hospitality finalist", body: "Clip was finalist for the Onboard Hospitality award for its Business Class amenity kit made for SWISS in partnership with the Swiss brand - VICTORINOX." },
+        { date: "2018", title: "Travel Plus finalist", body: "Clip was finalist for the Travel Plus award for its JETBLUE Mint Class amenity kit in partnership with the luxury brand HAYWARD & HOPPER.", i: "72975e_64a80a560f9147c08aabff5b716e69bb~mv2_d_2737_2737_s_4_2.jpg" },
+        { date: "April 2017", title: "Onboard Hospitality award", body: "Clip won the ONE TO WATCH Onboard Hospitality Award for its Seawool blanket made from oyster shells and recycled PET bottles." }
+      ].slice().sort((x, y) => new Date(y.date) - new Date(x.date)).map(a => ({ ...a, hasImg: !!a.i, noImg: !a.i, setRef: (el) => { if (el && a.i && el.src !== img(a.i)) el.src = img(a.i); } })),
+      newsCount: NEWS.length,
+      news: NEWS.map(n => ({
+        date: n.d, title: n.t, body: n.b, source: n.s,
+        href: n.u || "#", target: n.u ? "_blank" : "_self",
+        onClick: n.u ? undefined : (e) => e.preventDefault(),
+        linkStyle: "background:var(--surface-alt);display:block;text-decoration:none;color:inherit;" + (n.u ? "cursor:pointer;" : "cursor:default;"),
+        setRef: (el) => { if (el && el.src !== img(n.m)) el.src = img(n.m); }
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>
